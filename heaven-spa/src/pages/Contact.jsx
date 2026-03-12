@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { MapPin, Mail, Instagram, Facebook, Twitter, ChevronDown } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { MapPin, Mail, Phone, Instagram, Facebook, Twitter, ChevronDown } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import './Contact.css'
 
@@ -49,10 +50,17 @@ function FAQItem({ item }) {
 export default function Contact() {
   const [formRef, formVis] = useIntersectionObserver()
   const [faqRef, faqVis] = useIntersectionObserver()
+  const location = useLocation()
 
   const [form, setForm] = useState({
     name: '', email: '', phone: '', service: '', date: '', time: '', requests: '',
   })
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const plan = params.get('plan')
+    if (plan) setForm(f => ({ ...f, service: plan }))
+  }, [location.search])
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [errors, setErrors] = useState({})
@@ -123,6 +131,13 @@ export default function Contact() {
                   <a href="mailto:havenspaglobal@gmail.com">havenspaglobal@gmail.com</a>
                 </div>
               </li>
+              <li>
+                <div className="contact-info__icon"><Phone size={18} /></div>
+                <div>
+                  <strong>Phone / WhatsApp</strong>
+                  <a href="tel:+233204736880">+233 20 473 6880</a>
+                </div>
+              </li>
             </ul>
 
             {/* Map placeholder */}
@@ -138,9 +153,9 @@ export default function Contact() {
 
             {/* Socials */}
             <div className="contact-info__socials">
-              <a href="#" aria-label="Instagram"><Instagram size={18} /></a>
-              <a href="#" aria-label="Facebook"><Facebook size={18} /></a>
-              <a href="#" aria-label="Twitter"><Twitter size={18} /></a>
+              <a href="https://www.instagram.com/havenspaglobal?igsh=MW1iZGhpZmRlZ2tzYg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
+              <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={18} /></a>
+              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={18} /></a>
             </div>
           </div>
 
@@ -161,43 +176,56 @@ export default function Contact() {
                 <form className="contact-form" onSubmit={handleSubmit}>
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="name">Full Name *</label>
+                      <label htmlFor="name">Customer Name *</label>
                       <input id="name" name="name" type="text" placeholder="Jane Doe" value={form.name} onChange={update} className={errors.name ? 'error' : ''} />
                       {errors.name && <span className="form-error">{errors.name}</span>}
                     </div>
                     <div className="form-group">
-                      <label htmlFor="email">Email Address *</label>
+                      <label htmlFor="email">Customer Email *</label>
                       <input id="email" name="email" type="email" placeholder="jane@example.com" value={form.email} onChange={update} className={errors.email ? 'error' : ''} />
                       {errors.email && <span className="form-error">{errors.email}</span>}
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="phone">Phone Number</label>
+                      <label htmlFor="phone">Customer Phone</label>
                       <input id="phone" name="phone" type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={update} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="service">Service *</label>
+                      <label htmlFor="service">Service Type *</label>
                       <select id="service" name="service" value={form.service} onChange={update} className={errors.service ? 'error' : ''}>
                         <option value="">Select a treatment</option>
-                        <option>Massage Chair Therapy — 15 min</option>
-                        <option>Massage Chair Therapy — 30 min</option>
-                        <option>Massage Chair Therapy — 45 min</option>
-                        <option>Massage Chair Therapy — 60 min</option>
-                        <option>Luxury Pedicure</option>
-                        <option>Classic Manicure</option>
-                        <option>Deluxe Manicure</option>
-                        <option>Couples Relax &amp; Glow Session</option>
-                        <option>Haven Royal Retreat Package</option>
-                        <option>Golden Glow Package</option>
-                        <option>Classic Care Package</option>
+                        <optgroup label="Membership Plans">
+                          <option>Silver Wellness</option>
+                          <option>Gold Glow</option>
+                          <option>Platinum Luxe</option>
+                        </optgroup>
+                        <optgroup label="Individual Treatments">
+                          <option>Massage Chair Therapy — 5 min</option>
+                          <option>Massage Chair Therapy — 10 min</option>
+                          <option>Massage Chair Therapy — 15 min</option>
+                          <option>Massage Chair Therapy — 20 min</option>
+                          <option>Massage Chair Therapy — 25 min</option>
+                          <option>Massage Chair Therapy — 30 min</option>
+                          <option>Massage Chair Therapy — 45 min</option>
+                          <option>Massage Chair Therapy — 60 min</option>
+                          <option>Massage Chair Therapy</option>
+                          <option>Luxury Pedicure</option>
+                          <option>Classic &amp; Deluxe Manicure</option>
+                          <option>Classic Manicure</option>
+                          <option>Deluxe Manicure</option>
+                          <option>Couples Relax &amp; Glow Session</option>
+                          <option>Haven Royal Retreat Package</option>
+                          <option>Golden Glow Package</option>
+                          <option>Classic Care Package</option>
+                        </optgroup>
                       </select>
                       {errors.service && <span className="form-error">{errors.service}</span>}
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group">
-                      <label htmlFor="date">Preferred Date *</label>
+                      <label htmlFor="date">Appointment Date *</label>
                       <input id="date" name="date" type="date" value={form.date} onChange={update} className={errors.date ? 'error' : ''} min={new Date().toISOString().split('T')[0]} />
                       {errors.date && <span className="form-error">{errors.date}</span>}
                     </div>
@@ -211,7 +239,7 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="requests">Special Requests</label>
+                    <label htmlFor="requests">Notes</label>
                     <textarea id="requests" name="requests" rows={4} placeholder="Any allergies, preferences or special requirements..." value={form.requests} onChange={update} />
                   </div>
                   <button type="submit" className="btn btn-dark btn-submit" disabled={loading}>

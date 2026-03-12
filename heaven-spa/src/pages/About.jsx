@@ -7,7 +7,7 @@ const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
 
 const aboutHeroBg  = getImg('about-main.jpg')
-const ownerImg     = getImg('owner.jpg')
+const ownerImg     = getImg('owner.png')
 
 const BotanicalLeaf = ({ style = {} }) => (
   <svg className="botanical-leaf" style={style} viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,6 +44,8 @@ function Counter({ target, suffix = '' }) {
 
 const team = [
   { name: 'John Tetteh Awaitey', role: 'Founder & Managing Director', init: 'J' },
+  { name: 'Kofi Monday', role: 'Operator', init: 'K' },
+  { name: 'Esi Sunday', role: 'Operator', init: 'E' },
 ]
 
 export default function About() {

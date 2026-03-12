@@ -24,10 +24,10 @@ export default function Footer() {
             Your Safe Place. Relax. Recharge. Rejuvenate.
           </p>
           <div className="footer__socials">
-            <a href="#" aria-label="Instagram"><Instagram size={18} /></a>
-            <a href="#" aria-label="Facebook"><Facebook size={18} /></a>
-            <a href="#" aria-label="Twitter"><Twitter size={18} /></a>
-            <a href="#" aria-label="Youtube"><Youtube size={18} /></a>
+            <a href="https://www.instagram.com/havenspaglobal?igsh=MW1iZGhpZmRlZ2tzYg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
+            <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={18} /></a>
+            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={18} /></a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><Youtube size={18} /></a>
           </div>
         </div>
 

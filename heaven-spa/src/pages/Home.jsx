@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Wind, Wifi, Star, Coffee, ChevronDown, Play, Check, X } from 'lucide-react'
+import { Wind, Wifi, Star, Coffee, ChevronDown, ChevronLeft, ChevronRight, Play, Check, X } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import './Home.css'
 
@@ -8,8 +8,7 @@ import './Home.css'
 const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true })
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
 
-const heroImg        = getImg('hero.jpg')
-const aboutMainImg   = getImg('about-main.jpg')
+const aboutMainImg   = getImg('about-main.png')
 const aboutThumbImg  = getImg('about-thumb.jpg')
 const serviceHydroImg = getImg('service-hydro.jpg')
 const serviceAromaImg = getImg('service-aroma.jpg')
@@ -33,9 +32,48 @@ const BotanicalLeaf = ({ className = '' }) => (
   </svg>
 )
 
+/* ─── Hero slides data ────────────────────────────────── */
+const heroSlides = [
+  {
+    img: () => getImg('hero.jpg'),
+    label: 'Est. January 2026',
+    title: 'We give the best\nmassage for you',
+    sub: 'Experience premium massage therapy in a serene ash and gold environment designed for total comfort and wellness.',
+    cta1: { label: 'Learn More', to: '/about' },
+    cta2: { label: 'Book a Session', to: '/contact' },
+  },
+  {
+    img: () => getImg('hero1.jpg'),
+    label: 'Luxury Pedicure',
+    title: 'Pamper your feet,\nrejuvenate your soul',
+    sub: 'Professional foot care in our advanced massage pedicure chairs — nail care and full-body relaxation in one session.',
+    cta1: { label: 'Book Now', to: '/contact?plan=Luxury%20Pedicure' },
+    cta2: { label: 'Our Services', to: '#services', hash: true },
+  },
+  {
+    img: () => getImg('hero2.jpg'),
+    label: 'Manicure & More',
+    title: 'Beautiful hands,\nserene experience',
+    sub: 'Classic and Deluxe Manicure treatments in a calm, luxurious environment designed for your total comfort.',
+    cta1: { label: 'Book Now', to: '/contact?plan=Classic%20%26%20Deluxe%20Manicure' },
+    cta2: { label: 'View Pricing', to: '#pricing', hash: true },
+  },
+]
+
 /* ═══════════════════════════════════════════════════════ */
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false)
+  const [heroIdx, setHeroIdx] = useState(0)
+  const [heroPaused, setHeroPaused] = useState(false)
+
+  const heroNext = useCallback(() => setHeroIdx(i => (i + 1) % heroSlides.length), [])
+  const heroPrev = useCallback(() => setHeroIdx(i => (i - 1 + heroSlides.length) % heroSlides.length), [])
+
+  useEffect(() => {
+    if (heroPaused) return
+    const t = setInterval(heroNext, 5000)
+    return () => clearInterval(t)
+  }, [heroPaused, heroNext])
   const [aboutRef, aboutVis] = useIntersectionObserver()
   const [whyRef, whyVis] = useIntersectionObserver()
   const [servicesRef, servicesVis] = useIntersectionObserver()
@@ -43,24 +81,66 @@ export default function Home() {
 
   return (
     <>
-      {/* ═══ HERO ═══════════════════════════════════════ */}
-      <section className="hero">
-        {heroImg
-          ? <img src={heroImg} alt="Haven Spa" className="hero__bg" />
-          : <div className="hero__bg hero__bg--placeholder" />}
+      {/* ═══ HERO CAROUSEL ══════════════════════════════ */}
+      <section
+        className="hero"
+        onMouseEnter={() => setHeroPaused(true)}
+        onMouseLeave={() => setHeroPaused(false)}
+      >
+        {/* Slides */}
+        {heroSlides.map((slide, i) => {
+          const img = slide.img()
+          return (
+            <div key={i} className={`hero__slide${i === heroIdx ? ' hero__slide--active' : ''}`}>
+              {img
+                ? <img src={img} alt={slide.label} className="hero__bg" />
+                : <div className="hero__bg hero__bg--placeholder" />}
+            </div>
+          )
+        })}
+
         <div className="hero__overlay" />
-        <div className="hero__content animate-fadeUp">
-          <span className="section-label" style={{ color: 'var(--gold)' }}>Est. January 2026</span>
-          <h1 className="hero__title">We give the best<br />massage for you</h1>
-          <p className="hero__sub">
-            Experience premium massage therapy in a serene ash and gold environment designed
-            for total comfort and wellness.
-          </p>
-          <div className="hero__actions">
-            <Link to="/about" className="btn btn-gold">Learn More</Link>
-            <Link to="/contact" className="btn btn-outline-gold">Book a Session</Link>
+
+        {/* Content */}
+        {heroSlides.map((slide, i) => (
+          <div
+            key={i}
+            className={`hero__content${i === heroIdx ? ' hero__content--active' : ''}`}
+          >
+            <span className="section-label" style={{ color: 'var(--gold)' }}>{slide.label}</span>
+            <h1 className="hero__title">{slide.title.split('\n').map((line, j) => (
+              <span key={j}>{line}{j === 0 && <br />}</span>
+            ))}</h1>
+            <p className="hero__sub">{slide.sub}</p>
+            <div className="hero__actions">
+              <Link to={slide.cta1.to} className="btn btn-gold">{slide.cta1.label}</Link>
+              {slide.cta2.hash
+                ? <a href={slide.cta2.to} className="btn btn-outline-gold">{slide.cta2.label}</a>
+                : <Link to={slide.cta2.to} className="btn btn-outline-gold">{slide.cta2.label}</Link>}
+            </div>
           </div>
+        ))}
+
+        {/* Arrows */}
+        <button className="hero__arrow hero__arrow--prev" onClick={heroPrev} aria-label="Previous slide">
+          <ChevronLeft size={24} />
+        </button>
+        <button className="hero__arrow hero__arrow--next" onClick={heroNext} aria-label="Next slide">
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Dots */}
+        <div className="hero__dots">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              className={`hero__dot${i === heroIdx ? ' hero__dot--active' : ''}`}
+              onClick={() => setHeroIdx(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
+
         <a href="#about" className="hero__scroll-hint">
           <ChevronDown size={20} />
         </a>
@@ -153,9 +233,9 @@ export default function Home() {
           </div>
           <div className="services__cards">
             {[
-              { img: serviceHydroImg, title: 'Massage Chair Therapy', desc: 'Full-body relaxation using our state-of-the-art massage chairs. Relieve back and neck tension, improve blood circulation, reduce stress and fatigue, and ease muscle stiffness.', sessions: ['15 min', '30 min', '45 min', '60 min'] },
-              { img: serviceAromaImg, title: 'Luxury Pedicure', desc: 'Professional foot care while relaxing in our advanced massage pedicure chairs. Includes foot soak, nail shaping, exfoliation and scrub, callus treatment, moisturising massage, and back and shoulder massage throughout.' },
-              { img: serviceStoneImg, title: 'Classic & Deluxe Manicure', desc: 'Enhance the beauty of your hands in our relaxing spa atmosphere. Includes nail trimming and shaping, cuticle care, hand scrub, hand massage, and polish application. Deluxe option includes extended massage and premium treatments.' },
+              { img: serviceHydroImg, imgPos: 'center center', title: 'Massage Chair Therapy', desc: 'Full-body relaxation using our state-of-the-art massage chairs. Relieve back and neck tension, improve blood circulation, reduce stress and fatigue, and ease muscle stiffness.', sessions: ['15 min', '30 min', '45 min', '60 min'] },
+              { img: serviceAromaImg, imgPos: 'center top', title: 'Luxury Pedicure', desc: 'Professional foot care while relaxing in our advanced massage pedicure chairs. Includes foot soak, nail shaping, exfoliation and scrub, callus treatment, moisturising massage, and back and shoulder massage throughout.' },
+              { img: serviceStoneImg, imgPos: 'center top', title: 'Classic & Deluxe Manicure', desc: 'Enhance the beauty of your hands in our relaxing spa atmosphere. Includes nail trimming and shaping, cuticle care, hand scrub, hand massage, and polish application. Deluxe option includes extended massage and premium treatments.' },
             ].map((s, i) => (
               <div
                 key={s.title}
@@ -164,7 +244,7 @@ export default function Home() {
               >
                 <div className="service-card__img">
                   {s.img
-                    ? <img src={s.img} alt={s.title} />
+                    ? <img src={s.img} alt={s.title} style={{ objectPosition: s.imgPos }} />
                     : <Placeholder label={s.title} style={{ height: '100%' }} />}
                 </div>
                 <div className="service-card__body">
@@ -178,10 +258,54 @@ export default function Home() {
                       ))}
                     </div>
                   )}
-                  <Link to="/contact" className="btn btn-dark">Book Now</Link>
+                  <Link to={`/contact?plan=${encodeURIComponent(s.title)}`} className="btn btn-dark">Book Now</Link>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SESSION RATES ═════════════════════════════ */}
+      <section className="session-rates">
+        <div className="container-wide session-rates__inner">
+          <div className="session-rates__header">
+            <span className="section-label" style={{ color: 'var(--gold)' }}>Transparent Pricing</span>
+            <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Massage Chair Session Rates</h2>
+            <div className="floral-divider" style={{ color: 'var(--gold)' }}><span>✦</span><span>— ❧ —</span><span>✦</span></div>
+            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Haven Spa.</p>
+          </div>
+          <div className="session-rates__table-wrap">
+            <table className="session-rates__table">
+              <thead>
+                <tr>
+                  <th>Duration</th>
+                  <th>Price</th>
+                  <th>Best For</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { mins: 5,  price: 'GHS 20',  best: 'Quick stress relief' },
+                  { mins: 10, price: 'GHS 30',  best: 'Neck & shoulder ease' },
+                  { mins: 15, price: 'GHS 40',  best: 'Mid-day recharge' },
+                  { mins: 20, price: 'GHS 50',  best: 'Back tension release' },
+                  { mins: 25, price: 'GHS 60',  best: 'Deep relaxation' },
+                  { mins: 30, price: 'GHS 80',  best: 'Full-body therapy', popular: true },
+                ].map(row => (
+                  <tr key={row.mins} className={row.popular ? 'session-rates__row--popular' : ''}>
+                    <td><span className="session-rates__mins">{row.mins} min</span></td>
+                    <td><span className="session-rates__price">{row.price}</span></td>
+                    <td className="session-rates__best">{row.best}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>
+                      <Link to={`/contact?plan=${encodeURIComponent(`Massage Chair Therapy — ${row.mins} min`)}`} className="btn btn-outline-gold session-rates__btn">Book</Link>
+                      {row.popular && <span className="session-rates__badge">Most Popular</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -212,8 +336,8 @@ export default function Home() {
               <X size={22} />
             </button>
             <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-              title="Haven Spa Video"
+              src="https://www.youtube.com/embed/XjzmHE8hqjU?autoplay=1"
+              title="Massage Chair Therapy"
               allow="autoplay; encrypted-media"
               allowFullScreen
             />
@@ -222,7 +346,7 @@ export default function Home() {
       )}
 
       {/* ═══ PRICING ═══════════════════════════════════ */}
-      <section className="pricing" ref={pricingRef}>
+      <section className="pricing" id="pricing" ref={pricingRef}>
         <div className="pricing__inner container-wide">
           <div className="pricing__header">
             <span className="section-label">Membership Plans</span>
@@ -270,7 +394,7 @@ export default function Home() {
                     <li key={f}><Check size={15} />{f}</li>
                   ))}
                 </ul>
-                <Link to="/contact" className={`btn ${plan.highlight ? 'btn-gold' : 'btn-dark'}`}>Select Plan</Link>
+                <Link to={`/contact?plan=${encodeURIComponent(plan.name)}`} className={`btn ${plan.highlight ? 'btn-gold' : 'btn-dark'}`}>Select Plan</Link>
               </div>
             ))}
           </div>
