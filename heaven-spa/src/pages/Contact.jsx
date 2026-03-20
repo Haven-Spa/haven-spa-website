@@ -8,6 +8,18 @@ const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
 const heroBg = getImg('hero.jpg')
 
+const ALLOWED_SERVICES = new Set([
+  'Silver Wellness', 'Gold Glow', 'Platinum Luxe',
+  'Massage Chair Therapy — 5 min', 'Massage Chair Therapy — 10 min',
+  'Massage Chair Therapy — 15 min', 'Massage Chair Therapy — 20 min',
+  'Massage Chair Therapy — 25 min', 'Massage Chair Therapy — 30 min',
+  'Massage Chair Therapy — 45 min', 'Massage Chair Therapy — 60 min',
+  'Massage Chair Therapy', 'Luxury Pedicure',
+  'Classic & Deluxe Manicure', 'Classic Manicure', 'Deluxe Manicure',
+  'Couples Relax & Glow Session', 'Haven Royal Retreat Package',
+  'Golden Glow Package', 'Classic Care Package',
+])
+
 const faqs = [
   {
     q: 'Do you offer both massage and nail services?',
@@ -59,7 +71,7 @@ export default function Contact() {
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const plan = params.get('plan')
-    if (plan) setForm(f => ({ ...f, service: plan }))
+    if (plan && ALLOWED_SERVICES.has(plan)) setForm(f => ({ ...f, service: plan }))
   }, [location.search])
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -70,20 +82,60 @@ export default function Contact() {
   const validate = () => {
     const errs = {}
     if (!form.name.trim()) errs.name = 'Full name is required'
+    if (form.name.trim().length > 100) errs.name = 'Name must be 100 characters or fewer'
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email = 'Valid email required'
     if (!form.service) errs.service = 'Please select a service'
+    if (!ALLOWED_SERVICES.has(form.service)) errs.service = 'Please select a valid service'
     if (!form.date) errs.date = 'Please select a date'
     if (!form.time) errs.time = 'Please select a time'
+    if (form.requests.length > 500) errs.requests = 'Notes must be 500 characters or fewer'
     return errs
   }
 
-  const handleSubmit = (e) => {
+  const parseTimeSlot = (timeStr) => {
+    const [time, meridiem] = timeStr.split(' ')
+    let [hours, minutes] = time.split(':').map(Number)
+    if (meridiem === 'PM' && hours !== 12) hours += 12
+    if (meridiem === 'AM' && hours === 12) hours = 0
+    return { hours, minutes }
+  }
+
+  const parseDuration = (service) => {
+    const match = service.match(/(\d+)\s*min/)
+    return match ? parseInt(match[1], 10) : 60
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
     setErrors({})
     setLoading(true)
-    setTimeout(() => { setLoading(false); setSuccess(true) }, 1800)
+    try {
+      const { hours, minutes } = parseTimeSlot(form.time)
+      const appointmentDate = new Date(form.date)
+      appointmentDate.setHours(hours, minutes, 0, 0)
+
+      const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings', {
+        method: 'POST',
+        headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: form.name,
+          customerEmail: form.email,
+          customerPhone: form.phone,
+          serviceType: form.service,
+          appointmentDate: appointmentDate.toISOString(),
+          durationMinutes: parseDuration(form.service),
+          notes: form.requests,
+        }),
+      })
+      if (!res.ok) throw new Error('Booking request failed')
+      setSuccess(true)
+    } catch {
+      setErrors({ submit: 'Booking failed. Please try again.' })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const timeSlots = [
@@ -177,19 +229,19 @@ export default function Contact() {
                   <div className="form-row">
                     <div className="form-group">
                       <label htmlFor="name">Customer Name *</label>
-                      <input id="name" name="name" type="text" placeholder="Jane Doe" value={form.name} onChange={update} className={errors.name ? 'error' : ''} />
+                      <input id="name" name="name" type="text" placeholder="Jane Doe" value={form.name} onChange={update} className={errors.name ? 'error' : ''} maxLength={100} />
                       {errors.name && <span className="form-error">{errors.name}</span>}
                     </div>
                     <div className="form-group">
                       <label htmlFor="email">Customer Email *</label>
-                      <input id="email" name="email" type="email" placeholder="jane@example.com" value={form.email} onChange={update} className={errors.email ? 'error' : ''} />
+                      <input id="email" name="email" type="email" placeholder="jane@example.com" value={form.email} onChange={update} className={errors.email ? 'error' : ''} maxLength={100} />
                       {errors.email && <span className="form-error">{errors.email}</span>}
                     </div>
                   </div>
                   <div className="form-row">
                     <div className="form-group">
                       <label htmlFor="phone">Customer Phone</label>
-                      <input id="phone" name="phone" type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={update} />
+                      <input id="phone" name="phone" type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={update} maxLength={20} />
                     </div>
                     <div className="form-group">
                       <label htmlFor="service">Service Type *</label>
@@ -240,8 +292,10 @@ export default function Contact() {
                   </div>
                   <div className="form-group">
                     <label htmlFor="requests">Notes</label>
-                    <textarea id="requests" name="requests" rows={4} placeholder="Any allergies, preferences or special requirements..." value={form.requests} onChange={update} />
+                    <textarea id="requests" name="requests" rows={4} placeholder="Any allergies, preferences or special requirements..." value={form.requests} onChange={update} maxLength={500} />
+                    {errors.requests && <span className="form-error">{errors.requests}</span>}
                   </div>
+                  {errors.submit && <span className="form-error form-error--submit">{errors.submit}</span>}
                   <button type="submit" className="btn btn-dark btn-submit" disabled={loading}>
                     {loading ? <><span className="btn-spinner" />Processing…</> : 'Confirm Booking'}
                   </button>
