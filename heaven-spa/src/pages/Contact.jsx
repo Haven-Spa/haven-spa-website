@@ -8,17 +8,6 @@ const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
 const heroBg = getImg('hero.jpg')
 
-const ALLOWED_SERVICES = new Set([
-  'Silver Wellness', 'Gold Glow', 'Platinum Luxe',
-  'Massage Chair Therapy — 5 min', 'Massage Chair Therapy — 10 min',
-  'Massage Chair Therapy — 15 min', 'Massage Chair Therapy — 20 min',
-  'Massage Chair Therapy — 25 min', 'Massage Chair Therapy — 30 min',
-  'Massage Chair Therapy — 45 min', 'Massage Chair Therapy — 60 min',
-  'Massage Chair Therapy', 'Luxury Pedicure',
-  'Classic & Deluxe Manicure', 'Classic Manicure', 'Deluxe Manicure',
-  'Couples Relax & Glow Session', 'Haven Royal Retreat Package',
-  'Golden Glow Package', 'Classic Care Package',
-])
 
 const faqs = [
   {
@@ -67,12 +56,33 @@ export default function Contact() {
   const [form, setForm] = useState({
     name: '', email: '', phone: '', service: '', date: '', time: '', requests: '',
   })
+  const [services, setServices] = useState([])
+  const [servicesLoading, setServicesLoading] = useState(false)
+  const [servicesError, setServicesError] = useState(null)
+
+  useEffect(() => {
+    setServicesLoading(true)
+    fetch('https://haven-spa-apis.onrender.com/api/packages')
+      .then(r => r.json())
+      .then(data => {
+        const list = Array.isArray(data) ? data : (data.data ?? data.services ?? data.result ?? [])
+        setServices(list)
+      })
+      .catch(() => setServicesError('Could not load services'))
+      .finally(() => setServicesLoading(false))
+  }, [])
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const plan = params.get('plan')
-    if (plan && ALLOWED_SERVICES.has(plan)) setForm(f => ({ ...f, service: plan }))
-  }, [location.search])
+    if (plan && services.length) {
+      const found = services.find(
+        s => (s.name ?? s.serviceName ?? s.title ?? '') === plan
+      )
+      if (found) setForm(f => ({ ...f, service: found.id }))
+    }
+  }, [location.search, services])
+
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [errors, setErrors] = useState({})
@@ -85,7 +95,6 @@ export default function Contact() {
     if (form.name.trim().length > 100) errs.name = 'Name must be 100 characters or fewer'
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email = 'Valid email required'
     if (!form.service) errs.service = 'Please select a service'
-    if (!ALLOWED_SERVICES.has(form.service)) errs.service = 'Please select a valid service'
     if (!form.date) errs.date = 'Please select a date'
     if (!form.time) errs.time = 'Please select a time'
     if (form.requests.length > 500) errs.requests = 'Notes must be 500 characters or fewer'
@@ -100,10 +109,6 @@ export default function Contact() {
     return { hours, minutes }
   }
 
-  const parseDuration = (service) => {
-    const match = service.match(/(\d+)\s*min/)
-    return match ? parseInt(match[1], 10) : 60
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -113,8 +118,9 @@ export default function Contact() {
     setLoading(true)
     try {
       const { hours, minutes } = parseTimeSlot(form.time)
-      const appointmentDate = new Date(form.date)
-      appointmentDate.setHours(hours, minutes, 0, 0)
+      const pad = n => String(n).padStart(2, '0')
+      // Construct as a local datetime string so timezone does not shift the date
+      const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
       const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings', {
         method: 'POST',
@@ -123,16 +129,18 @@ export default function Contact() {
           customerName: form.name,
           customerEmail: form.email,
           customerPhone: form.phone,
-          serviceType: form.service,
+          packageId: form.service,
           appointmentDate: appointmentDate.toISOString(),
-          durationMinutes: parseDuration(form.service),
           notes: form.requests,
         }),
       })
-      if (!res.ok) throw new Error('Booking request failed')
+      const data = await res.json()
+      if (!res.ok || (data.responseCode !== undefined && data.responseCode !== '0000')) {
+        throw new Error(data.message || 'Booking request failed')
+      }
       setSuccess(true)
-    } catch {
-      setErrors({ submit: 'Booking failed. Please try again.' })
+    } catch (err) {
+      setErrors({ submit: err.message || 'Booking failed. Please try again.' })
     } finally {
       setLoading(false)
     }
@@ -220,7 +228,7 @@ export default function Contact() {
                   <div className="contact-form__success-icon">✦</div>
                   <h4>Booking Confirmed!</h4>
                   <p>Thank you, {form.name || 'dear guest'}! Your appointment request has been received. We will confirm within 2 hours.<br /><strong>Haven Spa, Your Safe Place.</strong></p>
-                  <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name:'',email:'',phone:'',service:'',date:'',time:'',requests:'' }) }}>
+                  <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', service: '', date: '', time: '', requests: '' }) }}>
                     Make Another Booking
                   </button>
                 </div>
@@ -244,33 +252,19 @@ export default function Contact() {
                       <input id="phone" name="phone" type="tel" placeholder="+233 XX XXX XXXX" value={form.phone} onChange={update} maxLength={20} />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="service">Service Type *</label>
-                      <select id="service" name="service" value={form.service} onChange={update} className={errors.service ? 'error' : ''}>
-                        <option value="">Select a treatment</option>
-                        <optgroup label="Membership Plans">
-                          <option>Silver Wellness</option>
-                          <option>Gold Glow</option>
-                          <option>Platinum Luxe</option>
-                        </optgroup>
-                        <optgroup label="Individual Treatments">
-                          <option>Massage Chair Therapy — 5 min</option>
-                          <option>Massage Chair Therapy — 10 min</option>
-                          <option>Massage Chair Therapy — 15 min</option>
-                          <option>Massage Chair Therapy — 20 min</option>
-                          <option>Massage Chair Therapy — 25 min</option>
-                          <option>Massage Chair Therapy — 30 min</option>
-                          <option>Massage Chair Therapy — 45 min</option>
-                          <option>Massage Chair Therapy — 60 min</option>
-                          <option>Massage Chair Therapy</option>
-                          <option>Luxury Pedicure</option>
-                          <option>Classic &amp; Deluxe Manicure</option>
-                          <option>Classic Manicure</option>
-                          <option>Deluxe Manicure</option>
-                          <option>Couples Relax &amp; Glow Session</option>
-                          <option>Haven Royal Retreat Package</option>
-                          <option>Golden Glow Package</option>
-                          <option>Classic Care Package</option>
-                        </optgroup>
+                      <label htmlFor="service">Service *</label>
+                      <select id="service" name="service" value={form.service} onChange={update} className={errors.service ? 'error' : ''} disabled={servicesLoading}>
+                        <option value="">
+                          {servicesLoading ? 'Loading services…' : 'Select a service'}
+                        </option>
+                        {servicesError && (
+                          <option value="" disabled>{servicesError}</option>
+                        )}
+                        {services.map(s => (
+                          <option key={s.id} value={s.id}>
+                            {s.name ?? s.serviceName ?? s.title ?? s.id}
+                          </option>
+                        ))}
                       </select>
                       {errors.service && <span className="form-error">{errors.service}</span>}
                     </div>
