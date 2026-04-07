@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Col 1 */}
         <div className="footer__col footer__col--brand">
           <Link to="/" className="footer__logo">
-            <span className="footer__logo-star">✦</span> Haven Spa
+            <span className="footer__logo-star">✦</span> Restore luxury spa and beauty
           </Link>
           <p className="footer__tagline">
             Your Safe Place. Relax. Recharge. Rejuvenate.
@@ -74,7 +74,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__bottom">
-        <p>© Haven Spa, 2026. All rights reserved. Your Safe Place.</p>
+        <p>© Restore luxury spa and beauty, 2026. All rights reserved. Your Safe Place.</p>
       </div>
     </footer>
   )

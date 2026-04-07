@@ -155,13 +155,13 @@ export default function Home() {
             <span className="section-label">Est. 2026</span>
             <h2 className="section-title">Modern Wellness &amp;<br />Beauty Lounge</h2>
             <p className="about-teaser__body">
-              Haven Spa is a modern wellness and beauty destination located along the
+              Restore luxury spa and beauty is a modern wellness and beauty destination located along the
               Somanya–Accra Road in Ogome (Brigade), Somanya. We specialise in premium massage
               chair therapy, luxury pedicure, and manicure services, all delivered in a serene
               ash and gold environment designed for comfort, elegance, and total relaxation.
             </p>
             <blockquote className="about-teaser__quote">
-              "Haven Spa, Your Safe Place."
+              "Restore luxury spa and beauty, Your Safe Place."
             </blockquote>
             <div className="about-teaser__owner">
               <div className="about-teaser__avatar">
@@ -273,7 +273,7 @@ export default function Home() {
             <span className="section-label" style={{ color: 'var(--gold)' }}>Transparent Pricing</span>
             <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Massage Chair Session Rates</h2>
             <div className="floral-divider" style={{ color: 'var(--gold)' }}><span>✦</span><span>— ❧ —</span><span>✦</span></div>
-            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Haven Spa.</p>
+            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore luxury spa and beauty.</p>
           </div>
           <div className="session-rates__table-wrap">
             <table className="session-rates__table">

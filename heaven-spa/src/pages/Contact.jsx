@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { MapPin, Mail, Phone, Instagram, Facebook, Twitter, ChevronDown } from 'lucide-react'
+import { MapPin, Mail, Phone, Instagram, Facebook, Twitter, ChevronDown, Clock, Sparkles, Star } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import './Contact.css'
 
@@ -12,7 +12,7 @@ const heroBg = getImg('hero.jpg')
 const faqs = [
   {
     q: 'Do you offer both massage and nail services?',
-    a: 'Yes. Haven Spa offers premium massage chair therapy as well as professional pedicure and manicure services.',
+    a: 'Yes. Restore luxury spa and beauty offers premium massage chair therapy as well as professional pedicure and manicure services.',
   },
   {
     q: 'Are your pedicure chairs massage chairs?',
@@ -33,12 +33,13 @@ const faqs = [
 ]
 
 /* ─── FAQ Item ──────────────────────────────────────────── */
-function FAQItem({ item }) {
+function FAQItem({ item, index }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className={`faq-item${open ? ' faq-item--open' : ''}`}>
+    <div className={`faq-item${open ? ' faq-item--open' : ''}`} style={{ animationDelay: `${index * 0.08}s` }}>
       <button className="faq-item__question" onClick={() => setOpen(o => !o)}>
-        <span>{item.q}</span>
+        <span className="faq-item__num">0{index + 1}</span>
+        <span className="faq-item__text">{item.q}</span>
         <ChevronDown size={18} className="faq-item__icon" />
       </button>
       <div className="faq-item__answer">
@@ -153,7 +154,7 @@ export default function Contact() {
 
   return (
     <>
-      {/* Hero */}
+      {/* ── Hero ─────────────────────────────────────── */}
       <section className="page-hero">
         {heroBg
           ? <img src={heroBg} alt="Book a Session" className="page-hero-img" />
@@ -164,15 +165,38 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Main content */}
+      {/* ── Trust Bar ────────────────────────────────── */}
+      <div className="contact-trust-bar">
+        <div className="container-wide contact-trust-bar__inner">
+          {[
+            { icon: <Star size={15} />, text: 'Premium experience guaranteed' },
+            { icon: <Clock size={15} />, text: 'Confirmed within 2 hours' },
+            { icon: <Sparkles size={15} />, text: 'Luxury spa environment' },
+            { icon: <MapPin size={15} />, text: 'Somanya, Eastern Region' },
+          ].map(({ icon, text }) => (
+            <div key={text} className="contact-trust-bar__item">
+              <span className="contact-trust-bar__icon">{icon}</span>
+              <span>{text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Main ─────────────────────────────────────── */}
       <section className="contact-main" ref={formRef}>
         <div className="container-wide contact-main__inner">
-          {/* LEFT — Info */}
+
+          {/* LEFT — Info panel */}
           <div className={`contact-info hidden-anim-right${formVis ? ' visible' : ''}`}>
-            <span className="section-label">Get In Touch</span>
-            <h2 className="section-title">We'd love to<br />hear from you</h2>
+            <div className="contact-info__brand">
+              <span className="contact-info__brand-star">✦</span>
+              <div>
+                <span className="section-label">Get In Touch</span>
+                <h2 className="section-title">We'd love to<br />hear from you</h2>
+              </div>
+            </div>
             <p className="contact-info__body">
-              Ready to begin your wellness journey? Reach out to our team or use our
+              Ready to begin your wellness journey? Reach out to our team or fill out the
               booking form. We're here to help you find the perfect treatment.
             </p>
 
@@ -200,11 +224,17 @@ export default function Contact() {
               </li>
             </ul>
 
-            {/* Map placeholder */}
+            {/* Hours badge */}
+            <div className="contact-info__hours">
+              <Clock size={15} />
+              <span><strong>Open Daily:</strong> 9:00 AM – 6:00 PM</span>
+            </div>
+
+            {/* Map */}
             <div className="contact-info__map">
               <iframe
                 src="https://maps.google.com/maps?q=Somanya+Ghana&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                title="Haven Spa Location"
+                title="Restore luxury spa and beauty Location"
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -212,22 +242,36 @@ export default function Contact() {
             </div>
 
             {/* Socials */}
-            <div className="contact-info__socials">
-              <a href="https://www.instagram.com/havenspaglobal?igsh=MW1iZGhpZmRlZ2tzYg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
-              <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={18} /></a>
-              <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={18} /></a>
+            <div className="contact-info__socials-row">
+              <span className="contact-info__socials-label">Follow Us</span>
+              <div className="contact-info__socials">
+                <a href="https://www.instagram.com/havenspaglobal?igsh=MW1iZGhpZmRlZ2tzYg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
+                <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={16} /></a>
+                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={16} /></a>
+              </div>
             </div>
           </div>
 
           {/* RIGHT — Booking Form */}
           <div className={`contact-form-wrap hidden-anim${formVis ? ' visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
             <div className="contact-form-card">
-              <h3>Reserve Your Appointment</h3>
+              <div className="contact-form-card__header">
+                <div className="contact-form-card__header-accent" />
+                <div className="contact-form-card__header-text">
+                  <span className="section-label" style={{ color: 'var(--gold)' }}>Booking Form</span>
+                  <h3>Reserve Your Appointment</h3>
+                  <p>Complete the form below and we'll confirm your slot within 2 hours.</p>
+                </div>
+              </div>
+
               {success ? (
                 <div className="contact-form__success">
-                  <div className="contact-form__success-icon">✦</div>
+                  <div className="contact-form__success-ring">
+                    <span className="contact-form__success-icon">✦</span>
+                  </div>
                   <h4>Booking Confirmed!</h4>
-                  <p>Thank you, {form.name || 'dear guest'}! Your appointment request has been received. We will confirm within 2 hours.<br /><strong>Haven Spa, Your Safe Place.</strong></p>
+                  <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 2 hours.</p>
+                  <p className="contact-form__success-tagline">Restore luxury spa and beauty, Your Safe Place.</p>
                   <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', service: '', date: '', time: '', requests: '' }) }}>
                     Make Another Booking
                   </button>
@@ -260,11 +304,18 @@ export default function Contact() {
                         {servicesError && (
                           <option value="" disabled>{servicesError}</option>
                         )}
-                        {services.map(s => (
-                          <option key={s.id} value={s.id}>
-                            {s.name ?? s.serviceName ?? s.title ?? s.id}
-                          </option>
-                        ))}
+                        {services.map(s => {
+                          const name = s.name ?? s.serviceName ?? s.title ?? s.id
+                          const duration = s.duration ?? s.durationMinutes ?? s.time ?? s.minutes
+                          const price = s.price ?? s.amount ?? s.cost
+                          const durationLabel = duration ? ` — ${typeof duration === 'number' ? duration + ' min' : duration}` : ''
+                          const priceLabel = price != null ? ` · GHS ${price}` : ''
+                          return (
+                            <option key={s.id} value={s.id}>
+                              {name}{durationLabel}{priceLabel}
+                            </option>
+                          )
+                        })}
                       </select>
                       {errors.service && <span className="form-error">{errors.service}</span>}
                     </div>
@@ -285,23 +336,28 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="requests">Notes</label>
-                    <textarea id="requests" name="requests" rows={4} placeholder="Any allergies, preferences or special requirements..." value={form.requests} onChange={update} maxLength={500} />
+                    <label htmlFor="requests">Special Notes</label>
+                    <textarea id="requests" name="requests" rows={4} placeholder="Any allergies, preferences or special requirements…" value={form.requests} onChange={update} maxLength={500} />
+                    <div className="form-char-count">{form.requests.length}/500</div>
                     {errors.requests && <span className="form-error">{errors.requests}</span>}
                   </div>
                   {errors.submit && <span className="form-error form-error--submit">{errors.submit}</span>}
                   <button type="submit" className="btn btn-dark btn-submit" disabled={loading}>
-                    {loading ? <><span className="btn-spinner" />Processing…</> : 'Confirm Booking'}
+                    {loading ? <><span className="btn-spinner" />Processing…</> : <><Sparkles size={15} />Confirm Booking</>}
                   </button>
                 </form>
               )}
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* ── FAQ ──────────────────────────────────────── */}
       <section className="faq-section" ref={faqRef}>
+        <div className="faq-section__bg-deco" aria-hidden="true">
+          <span>✦</span><span>—  ❧  —</span><span>✦</span>
+        </div>
         <div className="container-wide">
           <div className="faq-section__header">
             <span className="section-label">Got Questions?</span>
