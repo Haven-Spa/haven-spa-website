@@ -63,7 +63,7 @@ export default function Contact() {
 
   useEffect(() => {
     setServicesLoading(true)
-    fetch('https://haven-spa-apis.onrender.com/api/packages')
+    fetch('https://haven-spa-apis-rhy5.onrender.com/api/packages')
       .then(r => r.json())
       .then(data => {
         const list = Array.isArray(data) ? data : (data.data ?? data.services ?? data.result ?? [])
@@ -123,7 +123,7 @@ export default function Contact() {
   const fetchBookedSlots = async (date) => {
     try {
       setCheckingAvailability(true)
-      const res = await fetch(`https://haven-spa-apis.onrender.com/api/Bookings/date/${date}`)
+      const res = await fetch(`https://haven-spa-apis-rhy5.onrender.com/api/Bookings/date/${date}`)
       if (res.ok) {
         const data = await res.json()
         const bookings = Array.isArray(data) ? data : (data.data ?? data.bookings ?? [])
@@ -153,7 +153,7 @@ export default function Contact() {
       const pad = n => String(n).padStart(2, '0')
       const appointmentDate = new Date(`${date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings/check-availability', {
+      const res = await fetch('https://haven-spa-apis-rhy5.onrender.com/api/Bookings/check-availability', {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -183,7 +183,7 @@ export default function Contact() {
       const pad = n => String(n).padStart(2, '0')
       const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings/waitlist', {
+      const res = await fetch('https://haven-spa-apis-rhy5.onrender.com/api/Bookings/waitlist', {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -238,7 +238,7 @@ export default function Contact() {
       // Construct as a local datetime string so timezone does not shift the date
       const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings', {
+      const res = await fetch('https://haven-spa-apis-rhy5.onrender.com/api/Bookings', {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -285,7 +285,7 @@ export default function Contact() {
         <div className="container-wide contact-trust-bar__inner">
           {[
             { icon: <Star size={15} />, text: 'Premium experience guaranteed' },
-            { icon: <Clock size={15} />, text: 'Confirmed within 2 hours' },
+            { icon: <Clock size={15} />, text: 'Confirmed within 1 hour' },
             { icon: <Sparkles size={15} />, text: 'Luxury spa environment' },
             { icon: <MapPin size={15} />, text: 'Somanya, Eastern Region' },
           ].map(({ icon, text }) => (
@@ -375,7 +375,7 @@ export default function Contact() {
                 <div className="contact-form-card__header-text">
                   <span className="section-label" style={{ color: 'var(--gold)' }}>Booking Form</span>
                   <h3>Reserve Your Appointment</h3>
-                  <p>Complete the form below and we'll confirm your slot within 2 hours.</p>
+                  <p>Complete the form below and we'll confirm your slot within 1 hour.</p>
                 </div>
               </div>
 
@@ -385,7 +385,7 @@ export default function Contact() {
                     <span className="contact-form__success-icon">✦</span>
                   </div>
                   <h4>Booking Confirmed!</h4>
-                  <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 2 hours.</p>
+                  <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 1 hour.</p>
                   <p className="contact-form__success-tagline">Restore luxury spa and beauty, Your Safe Place.</p>
                   <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', service: '', date: '', time: '', requests: '' }) }}>
                     Make Another Booking
