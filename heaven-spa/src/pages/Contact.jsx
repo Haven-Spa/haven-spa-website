@@ -87,6 +87,9 @@ export default function Contact() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [errors, setErrors] = useState({})
+  const [conflictModal, setConflictModal] = useState({ show: false, message: '' })
+  const [bookedSlots, setBookedSlots] = useState([])
+  const [checkingAvailability, setCheckingAvailability] = useState(false)
 
   const update = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
 
@@ -110,13 +113,125 @@ export default function Contact() {
     return { hours, minutes }
   }
 
+  // Fetch booked slots when date changes
+  useEffect(() => {
+    if (form.date) {
+      fetchBookedSlots(form.date)
+    }
+  }, [form.date])
+
+  const fetchBookedSlots = async (date) => {
+    try {
+      setCheckingAvailability(true)
+      const res = await fetch(`https://haven-spa-apis.onrender.com/api/Bookings/date/${date}`)
+      if (res.ok) {
+        const data = await res.json()
+        const bookings = Array.isArray(data) ? data : (data.data ?? data.bookings ?? [])
+        
+        // Extract time slots from bookings
+        const slots = bookings.map(booking => {
+          const dateObj = new Date(booking.appointmentDate)
+          const hours = dateObj.getHours()
+          const minutes = dateObj.getMinutes()
+          const meridiem = hours >= 12 ? 'PM' : 'AM'
+          const displayHours = hours % 12 || 12
+          return `${displayHours}:${String(minutes).padStart(2, '0')} ${meridiem}`
+        })
+        
+        setBookedSlots(slots)
+      }
+    } catch (err) {
+      console.error('Failed to fetch booked slots:', err)
+    } finally {
+      setCheckingAvailability(false)
+    }
+  }
+
+  const checkAvailability = async (date, time) => {
+    try {
+      const { hours, minutes } = parseTimeSlot(time)
+      const pad = n => String(n).padStart(2, '0')
+      const appointmentDate = new Date(`${date}T${pad(hours)}:${pad(minutes)}:00`)
+
+      const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings/check-availability', {
+        method: 'POST',
+        headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          appointmentDate: appointmentDate.toISOString()
+        })
+      })
+      
+      if (res.ok) {
+        const data = await res.json()
+        return data.available ?? true
+      }
+      
+      // Fallback: check against local bookedSlots if API endpoint doesn't exist
+      return !bookedSlots.includes(time)
+    } catch {
+      // If endpoint doesn't exist, check against local bookedSlots
+      return !bookedSlots.includes(time)
+    }
+  }
+
+  const handleWaitlist = async () => {
+    setConflictModal({ show: false, message: '' })
+    setLoading(true)
+    
+    try {
+      const { hours, minutes } = parseTimeSlot(form.time)
+      const pad = n => String(n).padStart(2, '0')
+      const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
+
+      const res = await fetch('https://haven-spa-apis.onrender.com/api/Bookings/waitlist', {
+        method: 'POST',
+        headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: form.name,
+          customerEmail: form.email,
+          customerPhone: form.phone,
+          packageId: form.service,
+          appointmentDate: appointmentDate.toISOString(),
+          notes: form.requests,
+        })
+      })
+      
+      const data = await res.json()
+      
+      if (!res.ok || (data.responseCode !== undefined && data.responseCode !== '0000')) {
+        throw new Error(data.message || 'Failed to join waitlist')
+      }
+      
+      setSuccess(true)
+      setErrors({ submit: '' })
+    } catch (err) {
+      setErrors({ submit: err.message || 'Failed to join waitlist. Please try again.' })
+    } finally {
+      setLoading(false)
+    }
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
     setErrors({})
+    
+    // Check availability first
     setLoading(true)
+    const isAvailable = await checkAvailability(form.date, form.time)
+    
+    if (!isAvailable) {
+      setLoading(false)
+      setConflictModal({
+        show: true,
+        message: `The time slot ${form.time} on ${new Date(form.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} is already booked. Would you like to choose another time or join the waitlist?`
+      })
+      return
+    }
+    
+    // Proceed with booking if available
     try {
       const { hours, minutes } = parseTimeSlot(form.time)
       const pad = n => String(n).padStart(2, '0')
@@ -277,7 +392,8 @@ export default function Contact() {
                   </button>
                 </div>
               ) : (
-                <form className="contact-form" onSubmit={handleSubmit}>
+                <>
+                  <form className="contact-form" onSubmit={handleSubmit}>
                   <div className="form-row">
                     <div className="form-group">
                       <label htmlFor="name">Customer Name *</label>
@@ -328,9 +444,18 @@ export default function Contact() {
                     </div>
                     <div className="form-group">
                       <label htmlFor="time">Preferred Time *</label>
-                      <select id="time" name="time" value={form.time} onChange={update} className={errors.time ? 'error' : ''}>
-                        <option value="">Select time slot</option>
-                        {timeSlots.map(t => <option key={t}>{t}</option>)}
+                      <select id="time" name="time" value={form.time} onChange={update} className={errors.time ? 'error' : ''} disabled={!form.date || checkingAvailability}>
+                        <option value="">
+                          {!form.date ? 'Select a date first' : checkingAvailability ? 'Checking availability...' : 'Select time slot'}
+                        </option>
+                        {timeSlots.map(t => {
+                          const isBooked = bookedSlots.includes(t)
+                          return (
+                            <option key={t} value={t} disabled={isBooked}>
+                              {t} {isBooked ? '(Booked)' : '(Available)'}
+                            </option>
+                          )
+                        })}
                       </select>
                       {errors.time && <span className="form-error">{errors.time}</span>}
                     </div>
@@ -346,6 +471,36 @@ export default function Contact() {
                     {loading ? <><span className="btn-spinner" />Processing…</> : <><Sparkles size={15} />Confirm Booking</>}
                   </button>
                 </form>
+
+                {/* Conflict Modal */}
+                {conflictModal.show && (
+                  <div className="booking-conflict-modal">
+                    <div className="booking-conflict-modal__overlay" onClick={() => setConflictModal({ show: false, message: '' })} />
+                    <div className="booking-conflict-modal__content">
+                      <div className="booking-conflict-modal__header">
+                        <Clock size={24} />
+                        <h3>Time Slot Unavailable</h3>
+                      </div>
+                      <p className="booking-conflict-modal__message">{conflictModal.message}</p>
+                      <div className="booking-conflict-modal__actions">
+                        <button 
+                          className="btn btn-outline" 
+                          onClick={() => setConflictModal({ show: false, message: '' })}
+                        >
+                          Choose Another Time
+                        </button>
+                        <button 
+                          className="btn btn-dark" 
+                          onClick={handleWaitlist}
+                          disabled={loading}
+                        >
+                          {loading ? 'Joining Waitlist...' : 'Join Waitlist'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
               )}
             </div>
           </div>
