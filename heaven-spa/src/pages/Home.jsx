@@ -223,7 +223,7 @@ export default function Home() {
           <div className="services__cards">
             {[
               { img: serviceHydroImg, imgPos: 'center center', title: 'Massage Chair Therapy', desc: 'Full-body relaxation using our state-of-the-art massage chairs. Relieve back and neck tension, improve blood circulation, reduce stress and fatigue, and ease muscle stiffness.', sessions: ['10 min', '20 min', '30 min'] },
-              { img: serviceAromaImg, imgPos: 'center top', title: 'Luxury Pedicure', desc: 'Professional foot care while relaxing in our advanced massage pedicure chairs. Includes foot soak, nail shaping, exfoliation and scrub, callus treatment, moisturising massage, and back and shoulder massage throughout.' },
+              { img: serviceAromaImg, imgPos: 'center bottom', title: 'Luxury Pedicure', desc: 'Professional foot care while relaxing in our advanced massage pedicure chairs. Includes foot soak, nail shaping, exfoliation and scrub, callus treatment, moisturising massage, and back and shoulder massage throughout.' },
               { img: serviceStoneImg, imgPos: 'center top', title: 'Classic & Deluxe Manicure', desc: 'Enhance the beauty of your hands in our relaxing spa atmosphere. Includes nail trimming and shaping, cuticle care, hand scrub, hand massage, and polish application. Deluxe option includes extended massage and premium treatments.' },
             ].map((s, i) => (
               <div

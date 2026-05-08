@@ -361,7 +361,7 @@
 }
 
 .service-card__img {
-  height: 280px;
+  height: 320px;
   overflow: hidden;
 }
 .service-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
@@ -381,7 +381,7 @@
   font-size: 1.4rem;
   color: var(--espresso);
   margin-bottom: 0.75rem;
-  text-align: justify;
+  text-align: center;
 }
 .service-card__body p {
   font-size: 0.88rem;
