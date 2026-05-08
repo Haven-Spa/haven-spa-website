@@ -20,13 +20,9 @@ export default function Navbar() {
   return (
     <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
-        {/* Logo + Brand */}
+        {/* Logo */}
         <Link to="/" className="navbar__logo">
-          <img src={logoImg} alt="Restore Luxury Spa And Beauty" className="navbar__logo-img" />
-          <span className="navbar__brand">
-            <span className="navbar__brand-main">Restore</span>
-            <span className="navbar__brand-sub">Luxury Spa &amp; Beauty</span>
-          </span>
+          <img src={logoImg} alt="Restore Luxury Spa & Beauty" className="navbar__logo-img" />
         </Link>
 
         {/* Desktop nav */}

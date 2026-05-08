@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import CancellationPolicy from './pages/CancellationPolicy'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -25,6 +27,8 @@ function AppRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/cancellation" element={<CancellationPolicy />} />
         </Routes>
       </main>
       <Footer />

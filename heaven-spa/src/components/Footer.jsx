@@ -19,10 +19,10 @@ export default function Footer() {
         {/* Col 1 */}
         <div className="footer__col footer__col--brand">
           <Link to="/" className="footer__logo">
-            <img src={logoImg} alt="Restore Luxury Spa And Beauty" className="footer__logo-img" />
+            <img src={logoImg} alt="Restore Luxury Spa & Beauty" className="footer__logo-img" />
           </Link>
           <p className="footer__tagline">
-            Your Safe Place. Relax. Recharge. Rejuvenate.
+            Relax, Renew, Restore.
           </p>
           <div className="footer__socials">
             <a href="https://www.instagram.com/restoreluxuryspabeauty?igsh=MTYzN2E1eXk0a2VhNg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
@@ -38,6 +38,7 @@ export default function Footer() {
           <ul className="footer__contact">
             <li><MapPin size={14} /><span>Opposite G-Unit Hotel, Ogome (Brigade), Somanya, Eastern Region, Ghana</span></li>
             <li><Mail size={14} /><a href="mailto:restoreluxuryspa@gmail.com">restoreluxuryspa@gmail.com</a></li>
+            <li><span style={{ fontSize: '0.78rem', color: 'rgba(250,248,245,0.6)' }}>Open Daily: 10:00 AM – 10:00 PM</span></li>
           </ul>
         </div>
 
@@ -75,7 +76,8 @@ export default function Footer() {
       </div>
 
       <div className="footer__bottom">
-        <p>© Restore Luxury Spa And Beauty, 2026. All rights reserved. Your Safe Place.</p>
+        <p>© Restore Luxury Spa & Beauty, 2026. All rights reserved. Relax, Renew, Restore.</p>
+        <p style={{ marginTop: '0.5rem' }}><Link to="/privacy" style={{ color: 'var(--gold)', fontSize: '0.78rem', letterSpacing: '0.1em' }}>Privacy Policy</Link><span style={{ color: 'rgba(250,248,245,0.3)', margin: '0 0.6rem' }}>|</span><Link to="/cancellation" style={{ color: 'var(--gold)', fontSize: '0.78rem', letterSpacing: '0.1em' }}>Cancellation &amp; Refund Policy</Link></p>
       </div>
     </footer>
   )

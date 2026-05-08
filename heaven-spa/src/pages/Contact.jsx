@@ -12,7 +12,7 @@ const heroBg = getImg('hero.jpg')
 const faqs = [
   {
     q: 'Do you offer both massage and nail services?',
-    a: 'Yes. Restore Luxury Spa And Beauty offers premium massage chair therapy as well as professional pedicure and manicure services.',
+    a: 'Yes. Restore Luxury Spa & Beauty offers premium massage chair therapy as well as professional pedicure and manicure services.',
   },
   {
     q: 'Are your pedicure chairs massage chairs?',
@@ -342,14 +342,14 @@ export default function Contact() {
             {/* Hours badge */}
             <div className="contact-info__hours">
               <Clock size={15} />
-              <span><strong>Open Daily:</strong> 9:00 AM – 6:00 PM</span>
+              <span><strong>Open Daily:</strong> 10:00 AM – 10:00 PM</span>
             </div>
 
             {/* Map */}
             <div className="contact-info__map">
               <iframe
                 src="https://maps.google.com/maps?q=Somanya+Ghana&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                title="Restore Luxury Spa And Beauty Location"
+                title="Restore Luxury Spa & Beauty Location"
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -386,7 +386,7 @@ export default function Contact() {
                   </div>
                   <h4>Booking Confirmed!</h4>
                   <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 30 minutes.</p>
-                  <p className="contact-form__success-tagline">Restore Luxury Spa And Beauty, Your Safe Place.</p>
+                  <p className="contact-form__success-tagline">Restore Luxury Spa & Beauty — Relax, Renew, Restore.</p>
                   <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', service: '', date: '', time: '', requests: '' }) }}>
                     Make Another Booking
                   </button>

@@ -43,9 +43,8 @@ function Counter({ target, suffix = '' }) {
 }
 
 const team = [
-  { name: 'John Tetteh Awaitey', role: 'Founder & Managing Director', init: 'J' },
-  { name: 'Kofi Monday', role: 'Operator', init: 'K' },
-  { name: 'Esi Sunday', role: 'Operator', init: 'E' },
+  { name: 'John T. Awaitey', role: 'Founder & CEO', init: 'J' },
+  { name: 'Emmanuel T. Awaitey', role: 'Operations Manager', init: 'E' },
 ]
 
 export default function About() {
@@ -58,7 +57,7 @@ export default function About() {
       {/* Hero */}
       <section className="page-hero">
         {aboutHeroBg
-          ? <img src={aboutHeroBg} alt="About Restore Luxury Spa And Beauty" className="page-hero-img" />
+          ? <img src={aboutHeroBg} alt="About Restore Luxury Spa & Beauty" className="page-hero-img" />
           : <div className="page-hero-img" style={{ background: 'linear-gradient(135deg, var(--espresso), var(--bark))' }} />}
         <div className="page-hero-content">
           <h1>About Us</h1>
@@ -74,7 +73,7 @@ export default function About() {
             <span className="section-label">Our Journey</span>
             <h2 className="section-title">A Modern Wellness Destination<br />Founded in 2026</h2>
             <p>
-              Founded in 2026, Restore Luxury Spa And Beauty is a modern wellness and beauty destination located
+              Founded in 2026, Restore Luxury Spa & Beauty is a modern wellness and beauty destination located
               Opposite G-Unit Hotel, Ogome (Brigade), Somanya, Eastern Region, Ghana.
             </p>
             <p>
@@ -85,10 +84,10 @@ export default function About() {
               while receiving professional nail care.
             </p>
             <p>
-              At Restore Luxury Spa And Beauty, we believe self-care should be effortless, peaceful, and rejuvenating.
+              At Restore Luxury Spa & Beauty, we believe self-care should be effortless, peaceful, and rejuvenating.
               Whether you are here to relieve stress, refresh your feet, or treat yourself to a
               beauty session, we provide a calm and safe environment where wellness meets luxury.
-              Restore Luxury Spa And Beauty, Your Safe Place.
+              Relax, Renew, Restore.
             </p>
           </div>
           <div className={`about-story__portrait hidden-anim${storyVis ? ' visible' : ''}`} style={{ transitionDelay: '0.15s' }}>

@@ -36,7 +36,7 @@ const BotanicalLeaf = ({ className = '' }) => (
 const heroSlides = [
   {
     img: () => getImg('hero.jpg'),
-    label: 'Restore Luxury Spa And Beauty',
+    label: 'Restore Luxury Spa & Beauty',
     title: 'We give the best\nmassage for you',
     sub: 'Experience premium massage therapy in a serene ash and gold environment designed for total comfort and wellness.',
     cta1: { label: 'Learn More', to: '/about' },
@@ -154,13 +154,13 @@ export default function Home() {
           <div className={`about-teaser__text hidden-anim-right${aboutVis ? ' visible' : ''}`}>
             <h2 className="section-title">Modern Wellness &amp;<br />Beauty Lounge</h2>
             <p className="about-teaser__body">
-              Restore Luxury Spa And Beauty is a modern wellness and beauty destination located
+              Restore Luxury Spa & Beauty is a modern wellness and beauty destination located
               Opposite G-Unit Hotel, Ogome (Brigade), Somanya. We specialise in premium massage
               chair therapy, luxury pedicure, and manicure services, all delivered in a serene
               ash and gold environment designed for comfort, elegance, and total relaxation.
             </p>
             <blockquote className="about-teaser__quote">
-              "Restore Luxury Spa And Beauty, Your Safe Place."
+              "Relax, Renew, Restore."
             </blockquote>
             <Link to="/about" className="btn btn-dark" style={{ marginTop: '2rem' }}>Discover Our Story</Link>
           </div>
@@ -256,6 +256,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══ HEALTH BENEFITS ═══════════════════════════ */}
+      <section className="benefits">
+        <div className="container-wide benefits__inner">
+          <div className="benefits__header">
+            <span className="section-label">Why It Works</span>
+            <h2 className="section-title">Health Benefits of the<br />Luxury Massage</h2>
+            <div className="floral-divider"><span>✦</span><span>— ❧ —</span><span>✦</span></div>
+          </div>
+          <div className="benefits__grid">
+            {[
+              { title: 'Complete Body Calm',      desc: 'Relaxes every muscle from your neck down to your feet.' },
+              { title: 'Full Stress Reset',       desc: 'Calms your whole body, not just one spot.' },
+              { title: 'Total Pain Relief',       desc: 'Eases aches from shoulders down to calves.' },
+              { title: 'Whole Body Blood Flow',   desc: 'Boosts circulation everywhere you sit tight.' },
+              { title: 'All-Over Relaxation',     desc: 'Helps your entire body unwind for better sleep.' },
+              { title: 'Complete Mood Boost',     desc: 'Releases feel-good endorphins from top to bottom.' },
+            ].map((b, i) => (
+              <div key={b.title} className="benefit-card">
+                <span className="benefit-card__num">0{i + 1}</span>
+                <h3 className="benefit-card__title">{b.title}</h3>
+                <p className="benefit-card__desc">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ SESSION RATES ═════════════════════════════ */}
       <section className="session-rates">
         <div className="container-wide session-rates__inner">
@@ -263,7 +290,7 @@ export default function Home() {
             <span className="section-label" style={{ color: 'var(--gold)' }}>Transparent Pricing</span>
             <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Massage Chair Session Rates</h2>
             <div className="floral-divider" style={{ color: 'var(--gold)' }}><span>✦</span><span>— ❧ —</span><span>✦</span></div>
-            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore Luxury Spa And Beauty.</p>
+            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore Luxury Spa & Beauty.</p>
           </div>
           <div className="session-rates__table-wrap">
             <table className="session-rates__table">
@@ -271,23 +298,20 @@ export default function Home() {
                 <tr>
                   <th>Duration</th>
                   <th>Price</th>
-                  <th>Best For</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { mins: 10, price: 'GHS 30',  best: 'Neck & shoulder ease' },
-                  { mins: 20, price: 'GHS 50',  best: 'Back tension release' },
-                  { mins: 30, price: 'GHS 70',  best: 'Full-body therapy', popular: true },
+                  { mins: 10, price: 'GHS 30' },
+                  { mins: 20, price: 'GHS 50' },
+                  { mins: 30, price: 'GHS 70' },
                 ].map(row => (
-                  <tr key={row.mins} className={row.popular ? 'session-rates__row--popular' : ''}>
+                  <tr key={row.mins}>
                     <td><span className="session-rates__mins">{row.mins} min</span></td>
                     <td><span className="session-rates__price">{row.price}</span></td>
-                    <td className="session-rates__best">{row.best}</td>
                     <td style={{ whiteSpace: 'nowrap' }}>
                       <Link to={`/contact?plan=${encodeURIComponent(`Massage Chair Therapy — ${row.mins} min`)}`} className="btn btn-outline-gold session-rates__btn">Book</Link>
-                      {row.popular && <span className="session-rates__badge">Most Popular</span>}
                     </td>
                   </tr>
                 ))}
@@ -370,7 +394,6 @@ export default function Home() {
                 className={`pricing-card${plan.highlight ? ' pricing-card--highlight' : ''} hidden-anim${pricingVis ? ' visible' : ''}`}
                 style={{ transitionDelay: `${i * 0.12}s` }}
               >
-                {plan.highlight && <span className="pricing-card__badge">Most Popular</span>}
                 <h3 className="pricing-card__name">{plan.name}</h3>
                 <div className="pricing-card__price">
                   <span className="pricing-card__amount">{plan.price}</span>
@@ -385,17 +408,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ═══ PROMO BANNER ══════════════════════════════ */}
-      <section className="promo-banner">
-        <div className="promo-banner__overlay" />
-        <div className="promo-banner__content">
-          <span className="section-label" style={{ color: 'var(--gold)' }}>Special Package</span>
-          <h2>The Restore Royal<br />Retreat — GHS 300</h2>
-          <p>Our premium all-in-one experience: Luxury Pedicure + Classic Manicure + Full Massage Chair Therapy + Aromatherapy + PureGlow Facial Veil + Golden Refresh.</p>
-          <Link to="/contact" className="btn btn-gold">Make an Appointment</Link>
         </div>
       </section>
     </>
