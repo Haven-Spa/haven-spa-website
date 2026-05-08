@@ -36,7 +36,7 @@ const BotanicalLeaf = ({ className = '' }) => (
 const heroSlides = [
   {
     img: () => getImg('hero.jpg'),
-    label: 'Est. January 2026',
+    label: 'Restore Luxury Spa And Beauty',
     title: 'We give the best\nmassage for you',
     sub: 'Experience premium massage therapy in a serene ash and gold environment designed for total comfort and wellness.',
     cta1: { label: 'Learn More', to: '/about' },
