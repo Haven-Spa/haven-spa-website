@@ -152,7 +152,6 @@ export default function Home() {
         <div className="about-teaser__inner container-wide">
           {/* Left */}
           <div className={`about-teaser__text hidden-anim-right${aboutVis ? ' visible' : ''}`}>
-            <span className="section-label">Est. 2026</span>
             <h2 className="section-title">Modern Wellness &amp;<br />Beauty Lounge</h2>
             <p className="about-teaser__body">
               Restore Luxury Spa And Beauty is a modern wellness and beauty destination located
@@ -163,15 +162,6 @@ export default function Home() {
             <blockquote className="about-teaser__quote">
               "Restore Luxury Spa And Beauty, Your Safe Place."
             </blockquote>
-            <div className="about-teaser__owner">
-              <div className="about-teaser__avatar">
-                <span>J</span>
-              </div>
-              <div>
-                <strong>John Tetteh Awaitey</strong>
-                <span>Founder &amp; Managing Director</span>
-              </div>
-            </div>
             <Link to="/about" className="btn btn-dark" style={{ marginTop: '2rem' }}>Discover Our Story</Link>
           </div>
 

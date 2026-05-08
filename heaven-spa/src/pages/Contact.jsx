@@ -285,7 +285,7 @@ export default function Contact() {
         <div className="container-wide contact-trust-bar__inner">
           {[
             { icon: <Star size={15} />, text: 'Premium experience guaranteed' },
-            { icon: <Clock size={15} />, text: 'Confirmed within 1 hour' },
+            { icon: <Clock size={15} />, text: 'Confirmed within 30 minutes' },
             { icon: <Sparkles size={15} />, text: 'Luxury spa environment' },
             { icon: <MapPin size={15} />, text: 'Somanya, Eastern Region' },
           ].map(({ icon, text }) => (
@@ -375,7 +375,7 @@ export default function Contact() {
                 <div className="contact-form-card__header-text">
                   <span className="section-label" style={{ color: 'var(--gold)' }}>Booking Form</span>
                   <h3>Reserve Your Appointment</h3>
-                  <p>Complete the form below and we'll confirm your slot within 1 hour.</p>
+                  <p>Complete the form below and we'll confirm your slot within 30 minutes.</p>
                 </div>
               </div>
 
@@ -385,7 +385,7 @@ export default function Contact() {
                     <span className="contact-form__success-icon">✦</span>
                   </div>
                   <h4>Booking Confirmed!</h4>
-                  <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 1 hour.</p>
+                  <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 30 minutes.</p>
                   <p className="contact-form__success-tagline">Restore Luxury Spa And Beauty, Your Safe Place.</p>
                   <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', service: '', date: '', time: '', requests: '' }) }}>
                     Make Another Booking
