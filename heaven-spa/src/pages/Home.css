@@ -854,9 +854,50 @@
   .services__cards { grid-template-columns: 1fr; }
   .why-us__cards { grid-template-columns: 1fr; }
   .hero__title { font-size: 2.4rem; }
+  .hero__arrow { display: none; }
+  .hero { min-height: 520px; }
   .container-wide { padding: 0 1.25rem; }
   .about-teaser,
   .why-us,
   .services,
-  .pricing { padding: 4rem 0; }
+  .pricing,
+  .benefits,
+  .session-rates { padding: 4rem 0; }
+  .video-banner { height: 50vh; min-height: 280px; }
+  .video-banner__quote { font-size: clamp(1.4rem, 5vw, 2.2rem); padding: 0 1rem; }
+  .session-rates__table thead th,
+  .session-rates__table tbody td { padding: 0.9rem 1rem; }
+  .pricing__cards { max-width: 100%; }
+  .pricing-card { padding: 2rem 1.5rem; }
+  .pricing-card__amount { font-size: 2.4rem; }
+  .about-teaser__img-main { width: 80%; }
+  .about-teaser__img-thumb { width: 55%; }
+}
+
+@media (max-width: 480px) {
+  .hero { min-height: 480px; }
+  .hero__content { padding: 0 1rem; }
+  .hero__actions { flex-direction: column; align-items: center; }
+  .hero__actions .btn { width: 100%; justify-content: center; max-width: 280px; }
+  .hero__dots { bottom: 3.5rem; }
+  .about-teaser,
+  .why-us,
+  .services,
+  .pricing,
+  .benefits,
+  .session-rates { padding: 3rem 0; }
+  .why-card { padding: 1.75rem 1.25rem; }
+  .service-card__img { height: 220px; }
+  .session-rates__table thead th,
+  .session-rates__table tbody td { padding: 0.75rem 0.75rem; font-size: 0.83rem; }
+  .session-rates__mins { font-size: 1rem; }
+  .session-rates__price { font-size: 1.1rem; }
+  .session-rates__btn { padding: 0.35rem 0.85rem !important; font-size: 0.72rem !important; }
+  .video-banner { height: 45vh; min-height: 240px; }
+  .video-banner__play { width: 58px; height: 58px; }
+  .pricing__cards { max-width: 100%; }
+  .pricing-card { padding: 1.75rem 1.25rem; }
+  .pricing-card__amount { font-size: 2.2rem; }
+  .benefit-card { padding: 1.5rem 1.25rem; }
+  .benefit-card__num { font-size: 2rem; }
 }

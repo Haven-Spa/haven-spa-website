@@ -207,8 +207,18 @@
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .lightbox__prev { left: 0.5rem; }
   .lightbox__next { right: 0.5rem; }
+  .gallery-section { padding: 3.5rem 0 5rem; }
 }
 
 @media (max-width: 480px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .gallery-filters { gap: 0.5rem; }
+  .gallery-filter-btn { padding: 0.5rem 1rem; font-size: 0.72rem; }
+  .lightbox__prev,
+  .lightbox__next { width: 40px; height: 40px; }
+  .lightbox__close { top: 1rem; right: 1rem; width: 38px; height: 38px; }
+}
+
+@media (max-width: 360px) {
+  .gallery-grid { grid-template-columns: 1fr; }
 }

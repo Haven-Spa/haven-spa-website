@@ -170,5 +170,6 @@
 
 @media (max-width: 600px) {
   .footer__top { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem 2.5rem; }
-  .footer__bottom { padding: 1.25rem; }
+  .footer__bottom { padding: 1.25rem; font-size: 0.73rem; }
+  .footer__logo-img { height: 100px; }
 }

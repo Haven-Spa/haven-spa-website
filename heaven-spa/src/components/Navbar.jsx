@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import logoImg from '../assets/images/logo.png'
@@ -6,11 +6,24 @@ import './Navbar.css'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
+
+  // keep ref in sync so scroll handler can read it
+  useEffect(() => { openRef.current = open }, [open])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
+    let lastY = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 60)
+      // hide on scroll-down, show on scroll-up (mobile only via CSS)
+      if (y > lastY && y > 120 && !openRef.current) setHidden(true)
+      else setHidden(false)
+      lastY = y
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -18,7 +31,7 @@ export default function Navbar() {
   useEffect(() => { setOpen(false) }, [location.pathname])
 
   return (
-    <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
+    <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}${hidden ? ' navbar--hidden' : ''}`}>
       <div className="navbar__inner">
         {/* Logo */}
         <Link to="/" className="navbar__logo">
