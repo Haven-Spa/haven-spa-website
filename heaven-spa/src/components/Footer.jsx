@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, Instagram, Facebook, Twitter, Youtube } from 'lucide-react'
+import logoImg from '../assets/images/logo.jpeg'
 import './Footer.css'
 
 export default function Footer() {
@@ -18,13 +19,13 @@ export default function Footer() {
         {/* Col 1 */}
         <div className="footer__col footer__col--brand">
           <Link to="/" className="footer__logo">
-            <span className="footer__logo-star">✦</span> Restore Luxury Spa And Beauty
+            <img src={logoImg} alt="Restore Luxury Spa And Beauty" className="footer__logo-img" />
           </Link>
           <p className="footer__tagline">
             Your Safe Place. Relax. Recharge. Rejuvenate.
           </p>
           <div className="footer__socials">
-            <a href="https://www.instagram.com/havenspaglobal?igsh=MW1iZGhpZmRlZ2tzYg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
+            <a href="https://www.instagram.com/restoreluxuryspabeauty?igsh=MTYzN2E1eXk0a2VhNg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
             <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={18} /></a>
             <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={18} /></a>
             <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><Youtube size={18} /></a>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+import logoImg from '../assets/images/logo.jpeg'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -21,8 +22,7 @@ export default function Navbar() {
       <div className="navbar__inner">
         {/* Logo */}
         <Link to="/" className="navbar__logo">
-          <span className="navbar__logo-star">✦</span>
-          <span>Restore Luxury Spa And Beauty</span>
+          <img src={logoImg} alt="Restore Luxury Spa And Beauty" className="navbar__logo-img" />
         </Link>
 
         {/* Desktop nav */}

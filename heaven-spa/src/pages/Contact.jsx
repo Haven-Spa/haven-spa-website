@@ -360,7 +360,7 @@ export default function Contact() {
             <div className="contact-info__socials-row">
               <span className="contact-info__socials-label">Follow Us</span>
               <div className="contact-info__socials">
-                <a href="https://www.instagram.com/havenspaglobal?igsh=MW1iZGhpZmRlZ2tzYg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
+                <a href="https://www.instagram.com/restoreluxuryspabeauty?igsh=MTYzN2E1eXk0a2VhNg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
                 <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={16} /></a>
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={16} /></a>
               </div>

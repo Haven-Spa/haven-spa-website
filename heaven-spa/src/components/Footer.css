@@ -26,6 +26,14 @@
   color: var(--warm-white);
   margin-bottom: 1rem;
 }
+
+.footer__logo-img {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
 .footer__logo-star { color: var(--gold); font-size: 0.9rem; }
 
 .footer__tagline {
