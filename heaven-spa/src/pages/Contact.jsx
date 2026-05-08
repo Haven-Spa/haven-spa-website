@@ -327,7 +327,7 @@ export default function Contact() {
                 <div className="contact-info__icon"><Mail size={18} /></div>
                 <div>
                   <strong>Email</strong>
-                  <a href="mailto:havenspaglobal@gmail.com">havenspaglobal@gmail.com</a>
+                  <a href="mailto:restoreluxuryspa@gmail.com">restoreluxuryspa@gmail.com</a>
                 </div>
               </li>
               <li>

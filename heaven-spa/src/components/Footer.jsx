@@ -37,7 +37,7 @@ export default function Footer() {
           <h4 className="footer__heading">Get In Touch</h4>
           <ul className="footer__contact">
             <li><MapPin size={14} /><span>Opposite G-Unit Hotel, Ogome (Brigade), Somanya, Eastern Region, Ghana</span></li>
-            <li><Mail size={14} /><a href="mailto:havenspaglobal@gmail.com">havenspaglobal@gmail.com</a></li>
+            <li><Mail size={14} /><a href="mailto:restoreluxuryspa@gmail.com">restoreluxuryspa@gmail.com</a></li>
           </ul>
         </div>
 
