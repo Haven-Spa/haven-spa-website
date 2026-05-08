@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Col 1 */}
         <div className="footer__col footer__col--brand">
           <Link to="/" className="footer__logo">
-            <span className="footer__logo-star">✦</span> Restore luxury spa and beauty
+            <span className="footer__logo-star">✦</span> Restore Luxury Spa And Beauty
           </Link>
           <p className="footer__tagline">
             Your Safe Place. Relax. Recharge. Rejuvenate.
@@ -35,7 +35,7 @@ export default function Footer() {
         <div className="footer__col">
           <h4 className="footer__heading">Get In Touch</h4>
           <ul className="footer__contact">
-            <li><MapPin size={14} /><span>Somanya–Accra Road, Ogome (Brigade), Somanya, Eastern Region, Ghana</span></li>
+            <li><MapPin size={14} /><span>Opposite G-Unit Hotel, Ogome (Brigade), Somanya, Eastern Region, Ghana</span></li>
             <li><Mail size={14} /><a href="mailto:havenspaglobal@gmail.com">havenspaglobal@gmail.com</a></li>
           </ul>
         </div>
@@ -74,7 +74,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__bottom">
-        <p>© Restore luxury spa and beauty, 2026. All rights reserved. Your Safe Place.</p>
+        <p>© Restore Luxury Spa And Beauty, 2026. All rights reserved. Your Safe Place.</p>
       </div>
     </footer>
   )

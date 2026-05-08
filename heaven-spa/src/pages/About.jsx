@@ -58,7 +58,7 @@ export default function About() {
       {/* Hero */}
       <section className="page-hero">
         {aboutHeroBg
-          ? <img src={aboutHeroBg} alt="About Restore luxury spa and beauty" className="page-hero-img" />
+          ? <img src={aboutHeroBg} alt="About Restore Luxury Spa And Beauty" className="page-hero-img" />
           : <div className="page-hero-img" style={{ background: 'linear-gradient(135deg, var(--espresso), var(--bark))' }} />}
         <div className="page-hero-content">
           <h1>About Us</h1>
@@ -74,8 +74,8 @@ export default function About() {
             <span className="section-label">Our Journey</span>
             <h2 className="section-title">A Modern Wellness Destination<br />Founded in 2026</h2>
             <p>
-              Founded in 2026, Restore luxury spa and beauty is a modern wellness and beauty destination located along
-              the Somanya–Accra Road in Ogome (Brigade), Somanya, Eastern Region, Ghana.
+              Founded in 2026, Restore Luxury Spa And Beauty is a modern wellness and beauty destination located
+              Opposite G-Unit Hotel, Ogome (Brigade), Somanya, Eastern Region, Ghana.
             </p>
             <p>
               We specialise in premium massage chair therapy, luxury pedicure, and manicure services
@@ -85,10 +85,10 @@ export default function About() {
               while receiving professional nail care.
             </p>
             <p>
-              At Restore luxury spa and beauty, we believe self-care should be effortless, peaceful, and rejuvenating.
+              At Restore Luxury Spa And Beauty, we believe self-care should be effortless, peaceful, and rejuvenating.
               Whether you are here to relieve stress, refresh your feet, or treat yourself to a
               beauty session, we provide a calm and safe environment where wellness meets luxury.
-              Restore luxury spa and beauty, Your Safe Place.
+              Restore Luxury Spa And Beauty, Your Safe Place.
             </p>
           </div>
           <div className={`about-story__portrait hidden-anim${storyVis ? ' visible' : ''}`} style={{ transitionDelay: '0.15s' }}>

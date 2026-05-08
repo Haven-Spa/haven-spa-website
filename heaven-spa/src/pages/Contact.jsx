@@ -12,7 +12,7 @@ const heroBg = getImg('hero.jpg')
 const faqs = [
   {
     q: 'Do you offer both massage and nail services?',
-    a: 'Yes. Restore luxury spa and beauty offers premium massage chair therapy as well as professional pedicure and manicure services.',
+    a: 'Yes. Restore Luxury Spa And Beauty offers premium massage chair therapy as well as professional pedicure and manicure services.',
   },
   {
     q: 'Are your pedicure chairs massage chairs?',
@@ -320,7 +320,7 @@ export default function Contact() {
                 <div className="contact-info__icon"><MapPin size={18} /></div>
                 <div>
                   <strong>Our Location</strong>
-                  <span>Somanya–Accra Road, Ogome (Brigade)<br />Opposite the Washing Bay / G-Unit Hotel<br />Somanya, Eastern Region, Ghana</span>
+                  <span>Opposite G-Unit Hotel, Ogome (Brigade)<br />Somanya, Eastern Region, Ghana</span>
                 </div>
               </li>
               <li>
@@ -349,7 +349,7 @@ export default function Contact() {
             <div className="contact-info__map">
               <iframe
                 src="https://maps.google.com/maps?q=Somanya+Ghana&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                title="Restore luxury spa and beauty Location"
+                title="Restore Luxury Spa And Beauty Location"
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -386,7 +386,7 @@ export default function Contact() {
                   </div>
                   <h4>Booking Confirmed!</h4>
                   <p>Thank you, <strong>{form.name || 'dear guest'}</strong>! Your appointment request has been received. We will confirm within 1 hour.</p>
-                  <p className="contact-form__success-tagline">Restore luxury spa and beauty, Your Safe Place.</p>
+                  <p className="contact-form__success-tagline">Restore Luxury Spa And Beauty, Your Safe Place.</p>
                   <button className="btn btn-dark" onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', service: '', date: '', time: '', requests: '' }) }}>
                     Make Another Booking
                   </button>

@@ -22,7 +22,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="navbar__logo">
           <span className="navbar__logo-star">✦</span>
-          <span>Restore luxury spa and beauty</span>
+          <span>Restore Luxury Spa And Beauty</span>
         </Link>
 
         {/* Desktop nav */}

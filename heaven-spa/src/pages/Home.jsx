@@ -155,13 +155,13 @@ export default function Home() {
             <span className="section-label">Est. 2026</span>
             <h2 className="section-title">Modern Wellness &amp;<br />Beauty Lounge</h2>
             <p className="about-teaser__body">
-              Restore luxury spa and beauty is a modern wellness and beauty destination located along the
-              Somanya–Accra Road in Ogome (Brigade), Somanya. We specialise in premium massage
+              Restore Luxury Spa And Beauty is a modern wellness and beauty destination located
+              Opposite G-Unit Hotel, Ogome (Brigade), Somanya. We specialise in premium massage
               chair therapy, luxury pedicure, and manicure services, all delivered in a serene
               ash and gold environment designed for comfort, elegance, and total relaxation.
             </p>
             <blockquote className="about-teaser__quote">
-              "Restore luxury spa and beauty, Your Safe Place."
+              "Restore Luxury Spa And Beauty, Your Safe Place."
             </blockquote>
             <div className="about-teaser__owner">
               <div className="about-teaser__avatar">
@@ -196,7 +196,7 @@ export default function Home() {
       <section className="why-us" ref={whyRef}>
         <div className="why-us__inner container-wide">
           <div className="why-us__header">
-            <span className="section-label" style={{ color: 'var(--gold)' }}>Why Heaven</span>
+            <span className="section-label" style={{ color: 'var(--gold)' }}>Why Restore</span>
             <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Crafted for your comfort</h2>
           </div>
           <div className="why-us__cards">
@@ -233,7 +233,7 @@ export default function Home() {
           </div>
           <div className="services__cards">
             {[
-              { img: serviceHydroImg, imgPos: 'center center', title: 'Massage Chair Therapy', desc: 'Full-body relaxation using our state-of-the-art massage chairs. Relieve back and neck tension, improve blood circulation, reduce stress and fatigue, and ease muscle stiffness.', sessions: ['15 min', '30 min', '45 min', '60 min'] },
+              { img: serviceHydroImg, imgPos: 'center center', title: 'Massage Chair Therapy', desc: 'Full-body relaxation using our state-of-the-art massage chairs. Relieve back and neck tension, improve blood circulation, reduce stress and fatigue, and ease muscle stiffness.', sessions: ['10 min', '20 min', '30 min'] },
               { img: serviceAromaImg, imgPos: 'center top', title: 'Luxury Pedicure', desc: 'Professional foot care while relaxing in our advanced massage pedicure chairs. Includes foot soak, nail shaping, exfoliation and scrub, callus treatment, moisturising massage, and back and shoulder massage throughout.' },
               { img: serviceStoneImg, imgPos: 'center top', title: 'Classic & Deluxe Manicure', desc: 'Enhance the beauty of your hands in our relaxing spa atmosphere. Includes nail trimming and shaping, cuticle care, hand scrub, hand massage, and polish application. Deluxe option includes extended massage and premium treatments.' },
             ].map((s, i) => (
@@ -273,7 +273,7 @@ export default function Home() {
             <span className="section-label" style={{ color: 'var(--gold)' }}>Transparent Pricing</span>
             <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Massage Chair Session Rates</h2>
             <div className="floral-divider" style={{ color: 'var(--gold)' }}><span>✦</span><span>— ❧ —</span><span>✦</span></div>
-            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore luxury spa and beauty.</p>
+            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore Luxury Spa And Beauty.</p>
           </div>
           <div className="session-rates__table-wrap">
             <table className="session-rates__table">
@@ -287,12 +287,9 @@ export default function Home() {
               </thead>
               <tbody>
                 {[
-                  { mins: 5,  price: 'GHS 20',  best: 'Quick stress relief' },
                   { mins: 10, price: 'GHS 30',  best: 'Neck & shoulder ease' },
-                  { mins: 15, price: 'GHS 40',  best: 'Mid-day recharge' },
                   { mins: 20, price: 'GHS 50',  best: 'Back tension release' },
-                  { mins: 25, price: 'GHS 60',  best: 'Deep relaxation' },
-                  { mins: 30, price: 'GHS 80',  best: 'Full-body therapy', popular: true },
+                  { mins: 30, price: 'GHS 70',  best: 'Full-body therapy', popular: true },
                 ].map(row => (
                   <tr key={row.mins} className={row.popular ? 'session-rates__row--popular' : ''}>
                     <td><span className="session-rates__mins">{row.mins} min</span></td>
@@ -357,24 +354,24 @@ export default function Home() {
           <div className="pricing__cards">
             {[
               {
-                name: 'Silver Wellness',
-                price: 'GHS 250',
+                name: 'Silver',
+                price: 'GHS 180',
                 period: '/mo',
-                features: ['4 Sessions / Month', '60 Min Max per Session', 'Discounted Rates', 'Priority Booking'],
+                features: ['4 Luxury Massage Sessions', '30 Min Max per Session'],
                 highlight: false,
               },
               {
-                name: 'Gold Glow',
+                name: 'Gold',
                 price: 'GHS 400',
                 period: '/mo',
-                features: ['8 Sessions / Month', 'Pedicure + Massage Combo', 'Larger Discount', 'Complimentary Refreshment'],
+                features: ['6 Luxury Massage Sessions', '30 Min Max per Session', '1 Beauty Session (Pedicure or Manicure) + Massage Combo', 'More Discount', 'Complimentary Refreshment'],
                 highlight: true,
               },
               {
                 name: 'Platinum Luxe',
                 price: 'GHS 600',
                 period: '/mo',
-                features: ['10 Sessions / Month', 'VIP Priority Booking', 'Monthly Couples Session', 'Exclusive Member Perks'],
+                features: ['8 Luxury Massage Sessions', '30 Min Max per Session', '2 Beauty Sessions (Pedicure and/or Manicure) + Massage Combo', 'Complimentary Refreshment', 'A Wellness Product of Your Choice'],
                 highlight: false,
               },
             ].map((plan, i) => (
@@ -406,7 +403,7 @@ export default function Home() {
         <div className="promo-banner__overlay" />
         <div className="promo-banner__content">
           <span className="section-label" style={{ color: 'var(--gold)' }}>Special Package</span>
-          <h2>The Haven Royal<br />Retreat — GHS 300</h2>
+          <h2>The Restore Royal<br />Retreat — GHS 300</h2>
           <p>Our premium all-in-one experience: Luxury Pedicure + Classic Manicure + Full Massage Chair Therapy + Aromatherapy + PureGlow Facial Veil + Golden Refresh.</p>
           <Link to="/contact" className="btn btn-gold">Make an Appointment</Link>
         </div>
