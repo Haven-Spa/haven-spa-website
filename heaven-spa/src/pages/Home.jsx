@@ -215,7 +215,7 @@ export default function Home() {
         <BotanicalLeaf className="services__leaf-right" style={{ width: 140, right: -30, top: 60 }} />
         <div className="services__inner container-wide">
           <div className="services__header">
-            <span className="section-label">Treatments</span>
+            <span className="section-label">Services</span>
             <h2 className="section-title">What We Offer</h2>
             <div className="floral-divider">
               <span>✦</span><span>— ❧ —</span><span>✦</span>

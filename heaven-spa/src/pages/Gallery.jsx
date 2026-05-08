@@ -11,8 +11,8 @@ const _allImgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { ea
 const getImg = (name) => _allImgs[`../assets/images/${name}`]?.default ?? null
 
 /* ─── Gallery data ──────────────────────────────────────── */
-const categories = ['All', 'Treatments', 'Interiors', 'Team']
-const categoryMap = ['Treatments', 'Interiors', 'Team']
+const categories = ['All', 'Services', 'Interiors', 'Team']
+const categoryMap = ['Services', 'Interiors', 'Team']
 
 const galleryItems = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
