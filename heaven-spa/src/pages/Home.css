@@ -381,12 +381,14 @@
   font-size: 1.4rem;
   color: var(--espresso);
   margin-bottom: 0.75rem;
+  text-align: justify;
 }
 .service-card__body p {
   font-size: 0.88rem;
   color: rgba(61,43,31,0.7);
   line-height: 1.8;
   margin-bottom: 1rem;
+  text-align: justify;
 }
 
 .session-tags {

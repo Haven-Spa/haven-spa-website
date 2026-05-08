@@ -1,18 +1,9 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, Instagram, Facebook, Twitter, Youtube } from 'lucide-react'
 import logoImg from '../assets/images/logo.png'
 import './Footer.css'
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-
-  const handleSubscribe = (e) => {
-    e.preventDefault()
-    if (email.trim()) { setSubscribed(true); setEmail('') }
-  }
-
   return (
     <footer className="footer">
       <div className="footer__top container">
@@ -54,25 +45,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Col 4 */}
-        <div className="footer__col">
-          <h4 className="footer__heading">Newsletter</h4>
-          <p className="footer__newsletter-text">Subscribe for exclusive offers and wellness tips.</p>
-          {subscribed ? (
-            <p className="footer__subscribed">Thank you for subscribing! ✦</p>
-          ) : (
-            <form className="footer__newsletter-form" onSubmit={handleSubscribe}>
-              <input
-                type="email"
-                placeholder="Your email address"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit">Subscribe</button>
-            </form>
-          )}
-        </div>
+        {/* Col 4 removed (newsletter) */}
       </div>
 
       <div className="footer__bottom">
