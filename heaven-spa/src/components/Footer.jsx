@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, Instagram, Facebook, Twitter, Youtube } from 'lucide-react'
-import logoImg from '../assets/images/logo.jpeg'
+import logoImg from '../assets/images/logo.png'
 import './Footer.css'
 
 export default function Footer() {
