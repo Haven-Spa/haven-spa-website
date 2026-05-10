@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './PrivacyPolicy.css'
 
 export default function PrivacyPolicy() {
@@ -8,7 +9,7 @@ export default function PrivacyPolicy() {
         <div className="privacy-hero__overlay" />
         <div className="privacy-hero__content">
           <h1>Privacy Policy</h1>
-          <p><a href="/">Home</a> / Privacy Policy</p>
+          <p><Link to="/">Home</Link> / Privacy Policy</p>
         </div>
       </section>
 
@@ -70,7 +71,7 @@ export default function PrivacyPolicy() {
           <div className="privacy-section">
             <h2>Contact Us</h2>
             <p>If you have questions regarding this Privacy Policy, please contact us through the contact information provided on our website.</p>
-            <a href="/contact" className="btn btn-gold" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact Us</a>
+            <Link to="/contact" className="btn btn-gold" style={{ marginTop: '1rem', display: 'inline-block' }}>Contact Us</Link>
           </div>
         </div>
       </section>

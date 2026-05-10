@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './PrivacyPolicy.css'
 
 export default function CancellationPolicy() {
@@ -8,7 +9,7 @@ export default function CancellationPolicy() {
         <div className="privacy-hero__overlay" />
         <div className="privacy-hero__content">
           <h1>Cancellation &amp; Refund Policy</h1>
-          <p><a href="/">Home</a> / Cancellation &amp; Refund Policy</p>
+          <p><Link to="/">Home</Link> / Cancellation &amp; Refund Policy</p>
         </div>
       </section>
 
@@ -29,7 +30,7 @@ export default function CancellationPolicy() {
 
           <div className="privacy-section">
             <p>Thank you for choosing <strong>Restore Luxury Spa &amp; Beauty</strong>.</p>
-            <a href="/contact" className="btn btn-gold" style={{ marginTop: '1.2rem', display: 'inline-block' }}>Contact Us</a>
+            <Link to="/contact" className="btn btn-gold" style={{ marginTop: '1.2rem', display: 'inline-block' }}>Contact Us</Link>
           </div>
         </div>
       </section>
