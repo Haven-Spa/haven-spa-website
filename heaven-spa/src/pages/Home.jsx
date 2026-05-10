@@ -43,7 +43,7 @@ const heroSlides = [
     cta2: { label: 'Book a Session', to: '/contact' },
   },
   {
-    img: () => getImg('hero1.jpg'),
+    img: () => getImg('hero2.jpg'),
     label: 'Luxury Pedicure',
     title: 'Pamper your feet,\nrejuvenate your soul',
     sub: 'Professional foot care in our advanced massage pedicure chairs — nail care and full-body relaxation in one session.',
@@ -51,7 +51,7 @@ const heroSlides = [
     cta2: { label: 'Our Services', to: '#services', hash: true },
   },
   {
-    img: () => getImg('hero2.jpg'),
+    img: () => getImg('hero1.jpg'),
     label: 'Manicure & More',
     title: 'Beautiful hands,\nserene experience',
     sub: 'Classic and Deluxe Manicure treatments in a calm, luxurious environment designed for your total comfort.',
@@ -222,7 +222,7 @@ export default function Home() {
           </div>
           <div className="services__cards">
             {[
-              { img: serviceHydroImg, imgPos: 'center center', title: 'Massage Chair Therapy', desc: 'Full-body relaxation using our state-of-the-art massage chairs. Relieve back and neck tension, improve blood circulation, reduce stress and fatigue, and ease muscle stiffness.', sessions: ['10 min', '20 min', '30 min'] },
+              { img: serviceHydroImg, imgPos: 'center center', title: 'Massage Chair Therapy', desc: 'Experience complete full-body relaxation with our advanced massage chairs designed to ease tension from head to toe. Enjoy deep relief from back, neck, shoulder, leg, and foot stress while improving blood circulation, reducing fatigue, relieving muscle stiffness, and restoring overall wellness and comfort.', sessions: ['10 min', '20 min', '30 min'] },
               { img: serviceAromaImg, imgPos: 'center bottom', title: 'Luxury Pedicure', desc: 'Professional foot care while relaxing in our advanced massage pedicure chairs. Includes foot soak, nail shaping, exfoliation and scrub, callus treatment, moisturising massage, and back and shoulder massage throughout.' },
               { img: serviceStoneImg, imgPos: 'center top', title: 'Classic & Deluxe Manicure', desc: 'Enhance the beauty of your hands in our relaxing spa atmosphere. Includes nail trimming and shaping, cuticle care, hand scrub, hand massage, and polish application. Deluxe option includes extended massage and premium treatments.' },
             ].map((s, i) => (
@@ -259,7 +259,6 @@ export default function Home() {
       <section className="benefits">
         <div className="container-wide benefits__inner">
           <div className="benefits__header">
-            <span className="section-label">Why It Works</span>
             <h2 className="section-title">Health Benefits of the<br />Luxury Massage</h2>
             <div className="floral-divider"><span>✦</span><span>— ❧ —</span><span>✦</span></div>
           </div>
@@ -292,23 +291,29 @@ export default function Home() {
             <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore Luxury Spa & Beauty.</p>
           </div>
           <div className="session-rates__table-wrap">
+            <p className="session-rates__promo-note"></p>
             <table className="session-rates__table">
               <thead>
                 <tr>
                   <th>Duration</th>
-                  <th>Price</th>
+                  <th>
+                    Price
+                    <span className="session-rates__promo-note">🎉 Promotional — valid until 31st July 2026</span>
+                  </th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {[
-                  { mins: 10, price: 'GHS 30' },
-                  { mins: 20, price: 'GHS 50' },
-                  { mins: 30, price: 'GHS 70' },
+                  { mins: 10, price: 'GHS 30.00' },
+                  { mins: 20, price: 'GHS 50.00' },
+                  { mins: 30, price: 'GHS 80.00' },
                 ].map(row => (
                   <tr key={row.mins}>
                     <td><span className="session-rates__mins">{row.mins} min</span></td>
-                    <td><span className="session-rates__price">{row.price}</span></td>
+                    <td>
+                      <span className="session-rates__price">{row.price}</span>
+                    </td>
                     <td style={{ whiteSpace: 'nowrap' }}>
                       <Link to={`/contact?plan=${encodeURIComponent(`Massage Chair Therapy — ${row.mins} min`)}`} className="btn btn-outline-gold session-rates__btn">Book</Link>
                     </td>
@@ -345,11 +350,12 @@ export default function Home() {
             <button className="video-modal__close" onClick={() => setVideoOpen(false)}>
               <X size={22} />
             </button>
-            <iframe
-              src="https://www.youtube.com/embed/XjzmHE8hqjU?autoplay=1"
+            <video
+              src="/chairMassage.mp4"
               title="Massage Chair Therapy"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
+              controls
+              autoPlay
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             />
           </div>
         </div>
@@ -398,6 +404,7 @@ export default function Home() {
                   <span className="pricing-card__amount">{plan.price}</span>
                   <span className="pricing-card__period">{plan.period}</span>
                 </div>
+                <span className="pricing-card__promo">🎉 Promotional Rate</span>
                 <ul className="pricing-card__features">
                   {plan.features.map(f => (
                     <li key={f}><Check size={15} />{f}</li>

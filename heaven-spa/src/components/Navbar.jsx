@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-import logoImg from '../assets/images/logo.png'
+import logoImg from '../assets/images/LogoIcon.png'
+import logoWriteImg from '../assets/images/logoWrite.png'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -36,6 +37,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="navbar__logo">
           <img src={logoImg} alt="Restore Luxury Spa & Beauty" className="navbar__logo-img" />
+          <img src={logoWriteImg} alt="Restore Luxury Spa & Beauty" className="navbar__logo-write" />
         </Link>
 
         {/* Desktop nav */}

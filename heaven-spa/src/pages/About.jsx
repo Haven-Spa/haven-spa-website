@@ -8,6 +8,8 @@ const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
 
 const aboutHeroBg  = getImg('about-main.jpg')
 const ownerImg     = getImg('owner.png')
+const founderImg   = getImg('founder.png')
+const operationImg = getImg('operation.png')
 
 const BotanicalLeaf = ({ style = {} }) => (
   <svg className="botanical-leaf" style={style} viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,8 +45,12 @@ function Counter({ target, suffix = '' }) {
 }
 
 const team = [
-  { name: 'John T. Awaitey', role: 'Founder & CEO', init: 'J' },
-  { name: 'Emmanuel T. Awaitey', role: 'Operations Manager', init: 'E' },
+  { name: 'John T. Awaitey', role: 'Founder & CEO', init: 'J', img: founderImg },
+  { name: 'Emmanuel T. Awaitey', role: 'Managing Director', init: 'E', img: operationImg },
+  { name: 'Spa Manager', role: 'Spa Manager', init: 'S' },
+  { name: 'Snr Beauty Technician', role: 'Senior Beauty Technician', init: 'S' },
+  { name: 'Beauty Technician', role: 'Beauty Technician', init: 'B' },
+  { name: 'Massage Therapy Technician', role: 'Massage Therapy Technician', init: 'M' },
 ]
 
 export default function About() {
@@ -148,7 +154,9 @@ export default function About() {
                 style={{ transitionDelay: `${i * 0.1}s` }}
               >
                 <div className="team-card__photo">
-                  <span>{member.init}</span>
+                  {member.img
+                    ? <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+                    : <span>{member.init}</span>}
                 </div>
                 <h3 className="team-card__name">{member.name}</h3>
                 <p className="team-card__role">{member.role}</p>
