@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, Instagram, Facebook, Twitter, Youtube } from 'lucide-react'
-import logoImg from '../assets/images/logo.png'
+import logoImg from '../assets/images/LogoIcon.png'
 import './Footer.css'
 
 export default function Footer() {
@@ -11,6 +11,13 @@ export default function Footer() {
         <div className="footer__col footer__col--brand">
           <Link to="/" className="footer__logo">
             <img src={logoImg} alt="Restore Luxury Spa & Beauty" className="footer__logo-img" />
+            <div className="footer__logo-text">
+              <span className="footer__logo-text-top">Restore</span>
+              <div className="footer__logo-text-row">
+                <span className="footer__logo-text-main">Luxury</span>
+                <span className="footer__logo-text-sub">Spa &amp; Beauty</span>
+              </div>
+            </div>
           </Link>
           <p className="footer__tagline">
             Relax, Renew, Restore.

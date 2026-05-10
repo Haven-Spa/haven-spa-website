@@ -34,6 +34,65 @@
   mix-blend-mode: screen;
 }
 
+.footer__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer__logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  margin-left: -2.5rem;
+}
+
+.footer__logo-text-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.footer__logo-text-top {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff6a00, #f0a500, #ffe066, #f0a500, #ff6a00);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+.footer__logo-text-main {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #c9a96e 0%, #fff5cc 50%, #c9a96e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer__logo-text-sub {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #c9a96e 0%, #fff5cc 50%, #c9a96e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 0;
+}
+
 .footer__logo-star { color: var(--gold); font-size: 0.9rem; }
 
 .footer__tagline {
@@ -171,5 +230,9 @@
 @media (max-width: 600px) {
   .footer__top { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem 2.5rem; }
   .footer__bottom { padding: 1.25rem; font-size: 0.73rem; }
-  .footer__logo-img { height: 100px; }
+  .footer__logo-img { height: 60px; }
+  .footer__logo-text { margin-left: -2rem; align-items: center; }
+  .footer__logo-text-top { font-size: 1.1rem; }
+  .footer__logo-text-main { font-size: 0.75rem; letter-spacing: 0.1em; }
+  .footer__logo-text-sub { font-size: 0.75rem; letter-spacing: 0.1em; }
 }
