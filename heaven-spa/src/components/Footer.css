@@ -28,7 +28,7 @@
 }
 
 .footer__logo-img {
-  height: 160px;
+  height: 200px;
   width: auto;
   object-fit: contain;
   mix-blend-mode: screen;
@@ -45,7 +45,8 @@
   flex-direction: column;
   align-items: center;
   line-height: 1.1;
-  margin-left: -2.5rem;
+  margin-left: 0;
+  text-align: center;
 }
 
 .footer__logo-text-row {

@@ -35,7 +35,7 @@
 }
 
 .navbar__logo-img {
-  height: 130px;
+  height: 180px;
   width: auto;
   object-fit: contain;
   mix-blend-mode: screen;
@@ -51,7 +51,8 @@
   flex-direction: column;
   align-items: center;
   line-height: 1.1;
-  margin-left: -1rem;
+  margin-left: 0;
+  text-align: center;
 }
 
 .navbar__logo-text-row {
@@ -237,17 +238,17 @@
 
   .navbar__logo { margin-left: 0; }
   .navbar__logo-img { height: 60px; }
-  .navbar__logo-text { margin-left: -2.5rem; align-items: center; }
-  .navbar__logo-text-top { font-size: 1.1rem; }
-  .navbar__logo-text-main { font-size: 0.75rem; letter-spacing: 0.1em; }
-  .navbar__logo-text-sub { font-size: 0.75rem; letter-spacing: 0.1em; }
+  .navbar__logo-text { margin-left: 0; align-items: center; }
+  .navbar__logo-text-top { font-size: 1.8rem; }
+  .navbar__logo-text-main { font-size: 1rem; letter-spacing: 0.1em; }
+  .navbar__logo-text-sub { font-size: 1rem; letter-spacing: 0.1em; }
 }
 
 @media (max-width: 480px) {
   .navbar__logo-img { height: 50px; }
-  .navbar__logo-text { margin-left: -2rem; }
-  .navbar__logo-text-top { font-size: 0.95rem; }
-  .navbar__logo-text-main { font-size: 0.65rem; }
-  .navbar__logo-text-sub { font-size: 0.65rem; letter-spacing: 0.08em; }
+  .navbar__logo-text { margin-left: 0; }
+  .navbar__logo-text-top { font-size: 1.6rem; }
+  .navbar__logo-text-main { font-size: 0.9rem; }
+  .navbar__logo-text-sub { font-size: 0.9rem; letter-spacing: 0.08em; }
   .navbar { padding: 0.4rem 0.75rem; }
 }
