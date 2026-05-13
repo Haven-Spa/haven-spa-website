@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: 'What should I expect during a massage chair session?',
-    a: 'Our state-of-the-art chairs deliver full-body relaxation targeting back, neck, and legs. Sessions are available in 15, 30, 45, or 60 minute durations. After your session, enjoy a complimentary refreshment.',
+    a: 'Our state-of-the-art chairs deliver full-body relaxation targeting back, neck, and legs. Sessions are available in 10, 20, or 30 minute durations. After your session, enjoy a complimentary refreshment.',
   },
 ]
 
@@ -338,6 +338,20 @@ export default function Contact() {
                 </div>
               </li>
             </ul>
+
+            {/* WhatsApp CTA */}
+            <a
+              href="https://wa.me/233204736880?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20services"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-info__whatsapp-btn"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.122 1.528 5.858L0 24l6.335-1.502A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.368l-.36-.214-3.722.882.933-3.613-.235-.371A9.818 9.818 0 1112 21.818z"/>
+              </svg>
+              Chat on WhatsApp
+            </a>
 
             {/* Hours badge */}
             <div className="contact-info__hours">

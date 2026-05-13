@@ -142,6 +142,30 @@
 .contact-info__details a { transition: color var(--transition); }
 .contact-info__details a:hover { color: var(--terracotta); }
 
+/* WhatsApp button */
+.contact-info__whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 2rem;
+  background: #25D366;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+}
+.contact-info__whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+  color: #fff;
+}
+
 /* Hours badge */
 .contact-info__hours {
   display: inline-flex;
