@@ -97,7 +97,7 @@ export default function Contact() {
     const errs = {}
     if (!form.name.trim()) errs.name = 'Full name is required'
     if (form.name.trim().length > 100) errs.name = 'Name must be 100 characters or fewer'
-    if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email = 'Valid email required'
+    if (form.email && !form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errs.email = 'Please enter a valid email'
     if (!form.service) errs.service = 'Please select a service'
     if (!form.date) errs.date = 'Please select a date'
     if (!form.time) errs.time = 'Please select a time'
@@ -217,21 +217,8 @@ export default function Contact() {
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
     setErrors({})
-    
-    // Check availability first
     setLoading(true)
-    const isAvailable = await checkAvailability(form.date, form.time)
-    
-    if (!isAvailable) {
-      setLoading(false)
-      setConflictModal({
-        show: true,
-        message: `The time slot ${form.time} on ${new Date(form.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} is already booked. Would you like to choose another time or join the waitlist?`
-      })
-      return
-    }
-    
-    // Proceed with booking if available
+
     try {
       const { hours, minutes } = parseTimeSlot(form.time)
       const pad = n => String(n).padStart(2, '0')
@@ -252,7 +239,16 @@ export default function Contact() {
       })
       const data = await res.json()
       if (!res.ok || (data.responseCode !== undefined && data.responseCode !== '0000')) {
-        throw new Error(data.message || 'Booking request failed')
+        const msg = data.message || ''
+        const isConflict = res.status === 409 || /already booked|not available|conflict|time slot/i.test(msg)
+        if (isConflict) {
+          setConflictModal({
+            show: true,
+            message: msg || `The time slot ${form.time} on ${new Date(form.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} is already booked. Would you like to choose another time or join the waitlist?`,
+          })
+          return
+        }
+        throw new Error(msg || 'Booking request failed')
       }
       setSuccess(true)
     } catch (err) {
@@ -415,7 +411,7 @@ export default function Contact() {
                       {errors.name && <span className="form-error">{errors.name}</span>}
                     </div>
                     <div className="form-group">
-                      <label htmlFor="email">Customer Email *</label>
+                      <label htmlFor="email">Customer Email</label>
                       <input id="email" name="email" type="email" placeholder="jane@example.com" value={form.email} onChange={update} className={errors.email ? 'error' : ''} maxLength={100} />
                       {errors.email && <span className="form-error">{errors.email}</span>}
                     </div>
