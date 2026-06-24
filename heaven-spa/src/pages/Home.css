@@ -849,6 +849,14 @@
 
 .pricing-card .btn { width: 100%; justify-content: center; }
 
+.pricing-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--bark);
+  font-size: 1rem;
+}
+
 /* ═══ Promo Banner ════════════════════════════════════════ */
 .promo-banner {
   position: relative;

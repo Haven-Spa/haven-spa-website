@@ -66,7 +66,6 @@ export default function About() {
           ? <img src={aboutHeroBg} alt="About Restore Luxury Spa & Beauty" className="page-hero-img" />
           : <div className="page-hero-img" style={{ background: 'linear-gradient(135deg, var(--espresso), var(--bark))' }} />}
         <div className="page-hero-content">
-          <h1>About Us</h1>
           <p><a href="/">Home</a> / About Us</p>
         </div>
       </section>

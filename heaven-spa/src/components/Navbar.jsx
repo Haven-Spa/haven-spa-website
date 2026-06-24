@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import logoImg from '../assets/images/LogoIcon.png'
 import './Navbar.css'
@@ -47,14 +47,14 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="navbar__links">
-          {['/', '/about', '/gallery', '/contact'].map((path, i) => (
+          {['/', '/about', '/gallery', '/careers', '/contact'].map((path, i) => (
             <NavLink
               key={path}
               to={path}
               end={path === '/'}
               className={({ isActive }) => `navbar__link${isActive ? ' navbar__link--active' : ''}`}
             >
-              {['Home', 'About', 'Gallery', 'Contact'][i]}
+              {['Home', 'About', 'Gallery', 'Careers', 'Contact'][i]}
             </NavLink>
           ))}
         </nav>
@@ -74,7 +74,7 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       <div className={`navbar__drawer${open ? ' navbar__drawer--open' : ''}`}>
-        {['/', '/about', '/gallery', '/contact'].map((path, i) => (
+        {['/', '/about', '/gallery', '/careers', '/contact'].map((path, i) => (
           <NavLink
             key={path}
             to={path}
@@ -82,7 +82,7 @@ export default function Navbar() {
             className={({ isActive }) => `navbar__drawer-link${isActive ? ' active' : ''}`}
             onClick={() => setOpen(false)}
           >
-            {['Home', 'About', 'Gallery', 'Contact'][i]}
+            {['Home', 'About', 'Gallery', 'Careers', 'Contact'][i]}
           </NavLink>
         ))}
         <Link to="/contact" className="btn btn-gold" onClick={() => setOpen(false)} style={{ marginTop: '1rem', textAlign: 'center' }}>

@@ -65,7 +65,6 @@ export default function Gallery() {
           ? <img src={heroBg} alt="Gallery" className="page-hero-img" />
           : <div className="page-hero-img" style={{ background: 'linear-gradient(135deg, var(--espresso), var(--stone))' }} />}
         <div className="page-hero-content">
-          <h1>Our Gallery</h1>
           <p><a href="/">Home</a> / Gallery</p>
         </div>
       </section>

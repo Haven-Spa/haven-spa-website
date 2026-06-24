@@ -65,6 +65,8 @@ export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false)
   const [heroIdx, setHeroIdx] = useState(0)
   const [heroPaused, setHeroPaused] = useState(false)
+  const [packages, setPackages] = useState([])
+  const [packagesLoading, setPackagesLoading] = useState(false)
 
   const heroNext = useCallback(() => setHeroIdx(i => (i + 1) % heroSlides.length), [])
   const heroPrev = useCallback(() => setHeroIdx(i => (i - 1 + heroSlides.length) % heroSlides.length), [])
@@ -78,6 +80,18 @@ export default function Home() {
   const [whyRef, whyVis] = useIntersectionObserver()
   const [servicesRef, servicesVis] = useIntersectionObserver()
   const [pricingRef, pricingVis] = useIntersectionObserver()
+
+  useEffect(() => {
+    setPackagesLoading(true)
+    fetch('https://api.restoreluxuryspa.com/api/packages')
+      .then(r => r.json())
+      .then(data => {
+        const list = Array.isArray(data) ? data : (data.data ?? data.packages ?? data.result ?? [])
+        setPackages(list)
+      })
+      .catch(() => {})
+      .finally(() => setPackagesLoading(false))
+  }, [])
 
   return (
     <>
@@ -365,54 +379,42 @@ export default function Home() {
       <section className="pricing" id="pricing" ref={pricingRef}>
         <div className="pricing__inner container-wide">
           <div className="pricing__header">
-            <span className="section-label">Membership Plans</span>
+            <span className="section-label">Our Packages</span>
             <h2 className="section-title">Choose Your Wellness Plan</h2>
 
             <div className="floral-divider"><span>✦</span><span>— ❧ —</span><span>✦</span></div>
           </div>
           <div className="pricing__cards">
-            {[
-              {
-                name: 'Silver',
-                price: 'GHS 180',
-                period: '/mo',
-                features: ['4 Luxury Massage Sessions', '30 Min Max per Session'],
-                highlight: false,
-              },
-              {
-                name: 'Gold',
-                price: 'GHS 400',
-                period: '/mo',
-                features: ['6 Luxury Massage Sessions', '30 Min Max per Session', '1 Beauty Session (Pedicure or Manicure) + Massage Combo', 'More Discount', 'Complimentary Refreshment'],
-                highlight: true,
-              },
-              {
-                name: 'Platinum Luxe',
-                price: 'GHS 600',
-                period: '/mo',
-                features: ['8 Luxury Massage Sessions', '30 Min Max per Session', '2 Beauty Sessions (Pedicure and/or Manicure) + Massage Combo', 'Complimentary Refreshment', 'A Wellness Product of Your Choice'],
-                highlight: false,
-              },
-            ].map((plan, i) => (
-              <div
-                key={plan.name}
-                className={`pricing-card${plan.highlight ? ' pricing-card--highlight' : ''} hidden-anim${pricingVis ? ' visible' : ''}`}
-                style={{ transitionDelay: `${i * 0.12}s` }}
-              >
-                <h3 className="pricing-card__name">{plan.name}</h3>
-                <div className="pricing-card__price">
-                  <span className="pricing-card__amount">{plan.price}</span>
-                  <span className="pricing-card__period">{plan.period}</span>
-                </div>
-                <span className="pricing-card__promo">🎉 Promotional Rate</span>
-                <ul className="pricing-card__features">
-                  {plan.features.map(f => (
-                    <li key={f}><Check size={15} />{f}</li>
-                  ))}
-                </ul>
-                <Link to={`/contact?plan=${encodeURIComponent(plan.name)}`} className={`btn ${plan.highlight ? 'btn-gold' : 'btn-dark'}`}>Select Plan</Link>
-              </div>
-            ))}
+            {packagesLoading ? (
+              <div className="pricing-loading">Loading packages…</div>
+            ) : (
+              packages.map((plan, i) => {
+                const name = plan.name ?? plan.serviceName ?? plan.title ?? plan.id
+                const price = plan.price ?? plan.amount ?? plan.cost
+                const features = plan.features ?? (plan.description ? [plan.description] : [])
+                const isHighlight = plan.highlight ?? plan.featured ?? false
+                return (
+                  <div
+                    key={plan.id ?? name}
+                    className={`pricing-card${isHighlight ? ' pricing-card--highlight' : ''} hidden-anim${pricingVis ? ' visible' : ''}`}
+                    style={{ transitionDelay: `${i * 0.12}s` }}
+                  >
+                    <h3 className="pricing-card__name">{name}</h3>
+                    <div className="pricing-card__price">
+                      <span className="pricing-card__amount">GHS {price}</span>
+                      <span className="pricing-card__period">/mo</span>
+                    </div>
+                    <span className="pricing-card__promo">🎉 Promotional Rate</span>
+                    <ul className="pricing-card__features">
+                      {features.map((f, idx) => (
+                        <li key={idx}><Check size={15} />{f}</li>
+                      ))}
+                    </ul>
+                    <Link to={`/contact?plan=${encodeURIComponent(name)}`} className={`btn ${isHighlight ? 'btn-gold' : 'btn-dark'}`}>Select Plan</Link>
+                  </div>
+                )
+              })
+            )}
           </div>
         </div>
       </section>

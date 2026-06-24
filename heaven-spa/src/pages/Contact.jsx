@@ -63,7 +63,7 @@ export default function Contact() {
 
   useEffect(() => {
     setServicesLoading(true)
-    fetch('https://haven-spa-apis-rhy5.onrender.com/api/packages')
+    fetch('https://api.restoreluxuryspa.com/api/packages')
       .then(r => r.json())
       .then(data => {
         const list = Array.isArray(data) ? data : (data.data ?? data.services ?? data.result ?? [])
@@ -123,7 +123,7 @@ export default function Contact() {
   const fetchBookedSlots = async (date) => {
     try {
       setCheckingAvailability(true)
-      const res = await fetch(`https://haven-spa-apis-rhy5.onrender.com/api/Bookings/date/${date}`)
+      const res = await fetch(`https://api.restoreluxuryspa.com/api/Bookings/date/${date}`)
       if (res.ok) {
         const data = await res.json()
         const bookings = Array.isArray(data) ? data : (data.data ?? data.bookings ?? [])
@@ -153,7 +153,7 @@ export default function Contact() {
       const pad = n => String(n).padStart(2, '0')
       const appointmentDate = new Date(`${date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://haven-spa-apis-rhy5.onrender.com/api/Bookings/check-availability', {
+      const res = await fetch('https://api.restoreluxuryspa.com/api/Bookings/check-availability', {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -183,7 +183,7 @@ export default function Contact() {
       const pad = n => String(n).padStart(2, '0')
       const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://haven-spa-apis-rhy5.onrender.com/api/Bookings/waitlist', {
+      const res = await fetch('https://api.restoreluxuryspa.com/api/Bookings/waitlist', {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -225,7 +225,7 @@ export default function Contact() {
       // Construct as a local datetime string so timezone does not shift the date
       const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://haven-spa-apis-rhy5.onrender.com/api/Bookings', {
+      const res = await fetch('https://api.restoreluxuryspa.com/api/Bookings', {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -271,7 +271,6 @@ export default function Contact() {
           ? <img src={heroBg} alt="Book a Session" className="page-hero-img" />
           : <div className="page-hero-img" style={{ background: 'linear-gradient(135deg, var(--espresso), var(--terracotta))' }} />}
         <div className="page-hero-content">
-          <h1>Book Your Session</h1>
           <p><a href="/">Home</a> / Contact</p>
         </div>
       </section>
