@@ -10,16 +10,30 @@
 }
 
 .footer__top {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 0.8fr;
-  gap: 3rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4rem;
   padding: 5rem 2rem 4rem;
+}
+
+.footer__col--brand {
+  flex: 1 1 44%;
+  max-width: 520px;
+}
+
+.footer__right {
+  flex: 1 1 56%;
+  display: grid;
+  grid-template-columns: minmax(260px, 1.3fr) minmax(190px, 0.9fr);
+  gap: 2.75rem;
 }
 
 .footer__logo {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 500;
@@ -28,7 +42,7 @@
 }
 
 .footer__logo-img {
-  height: 200px;
+  height: 88px;
   width: auto;
   object-fit: contain;
   mix-blend-mode: screen;
@@ -43,16 +57,17 @@
 .footer__logo-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   line-height: 1.1;
   margin-left: 0;
-  text-align: center;
+  text-align: left;
 }
 
 .footer__logo-text-row {
   display: flex;
   align-items: baseline;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.1rem;
 }
 
 .footer__logo-text-top {
@@ -224,16 +239,24 @@
   color: rgba(250,248,245,0.4);
 }
 
-@media (max-width: 1024px) {
-  .footer__top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer__top { gap: 2rem; padding: 2.5rem 1.5rem 2.5rem; }
+  .footer__col--brand { flex-basis: 46%; }
+  .footer__right { flex-basis: 54%; grid-template-columns: 1.2fr 0.9fr; gap: 1.5rem; }
+  .footer__logo-img { height: 60px; }
+  .footer__logo-text { margin-left: 0; }
+  .footer__logo-text-main { font-size: 1rem; letter-spacing: 0.08em; }
+  .footer__logo-text-sub { font-size: 1rem; letter-spacing: 0.08em; margin-left: 0.3rem; }
 }
 
 @media (max-width: 600px) {
-  .footer__top { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem 2.5rem; }
+  .footer__top { flex-direction: column; gap: 2rem; padding: 3rem 1.25rem 2.5rem; }
+  .footer__col--brand { max-width: 100%; }
+  .footer__right { width: 100%; grid-template-columns: 1fr; gap: 2rem; }
   .footer__bottom { padding: 1.25rem; font-size: 0.73rem; }
   .footer__logo-img { height: 60px; }
-  .footer__logo-text { margin-left: -2rem; align-items: center; }
+  .footer__logo-text { margin-left: 0; align-items: flex-start; }
   .footer__logo-text-top { font-size: 1.1rem; }
-  .footer__logo-text-main { font-size: 0.75rem; letter-spacing: 0.1em; }
-  .footer__logo-text-sub { font-size: 0.75rem; letter-spacing: 0.1em; }
+  .footer__logo-text-main { font-size: 0.85rem; letter-spacing: 0.08em; margin-left: 0; }
+  .footer__logo-text-sub { font-size: 0.85rem; letter-spacing: 0.08em; margin-left: 0; }
 }

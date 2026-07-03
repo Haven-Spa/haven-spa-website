@@ -45,22 +45,24 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="navbar__links">
-          {['/', '/about', '/gallery', '/careers', '/contact'].map((path, i) => (
-            <NavLink
-              key={path}
-              to={path}
-              end={path === '/'}
-              className={({ isActive }) => `navbar__link${isActive ? ' navbar__link--active' : ''}`}
-            >
-              {['Home', 'About', 'Gallery', 'Careers', 'Contact'][i]}
-            </NavLink>
-          ))}
-        </nav>
+        <div className="navbar__right">
+          {/* Desktop nav */}
+          <nav className="navbar__links">
+            {['/', '/about', '/gallery', '/careers', '/contact'].map((path, i) => (
+              <NavLink
+                key={path}
+                to={path}
+                end={path === '/'}
+                className={({ isActive }) => `navbar__link${isActive ? ' navbar__link--active' : ''}`}
+              >
+                {['Home', 'About', 'Gallery', 'Careers', 'Contact'][i]}
+              </NavLink>
+            ))}
+          </nav>
 
-        {/* CTA */}
-        <Link to="/contact" className="navbar__cta btn btn-outline-gold">Book Now</Link>
+          {/* CTA */}
+          <Link to="/contact" className="navbar__cta btn btn-outline-gold">Book Now</Link>
+        </div>
 
         {/* Mobile hamburger */}
         <button

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Wind, Wifi, Star, Coffee, ChevronDown, ChevronLeft, ChevronRight, Play, Check, X } from 'lucide-react'
+import { Wind, Wifi, Star, Coffee, Hand, ChevronDown, ChevronLeft, ChevronRight, Play, Check, X } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import './Home.css'
 
@@ -207,6 +207,7 @@ export default function Home() {
             {[
               { icon: <Wind size={28} />, title: 'Massage Chair Therapy', desc: 'State-of-the-art massage chairs that relieve tension, improve circulation, and promote deep relaxation.' },
               { icon: <Star size={28} />, title: 'Luxury Pedicure', desc: 'Professional foot care in advanced massage pedicure chairs,nail care and full-body relaxation at once.' },
+              { icon: <Hand size={28} />, title: 'Manicure', desc: 'Classic and Deluxe manicure treatments in a calm, luxurious environment designed for your total comfort and beauty.' },
               { icon: <Wifi size={28} />, title: 'Serene Environment', desc: 'A calm ash and gold space designed for total comfort, elegance, and peaceful wellness.' },
               { icon: <Coffee size={28} />, title: 'After-Spa Refreshments', desc: 'Enjoy complimentary Sobolo, Lemon Tea, or Herbal Infusion after every session to restore and rehydrate.' },
             ].map((f, i) => (
@@ -379,8 +380,7 @@ export default function Home() {
       <section className="pricing" id="pricing" ref={pricingRef}>
         <div className="pricing__inner container-wide">
           <div className="pricing__header">
-            <span className="section-label">Our Packages</span>
-            <h2 className="section-title">Choose Your Wellness Plan</h2>
+            <h2 className="section-title" style={{ fontSize: 'clamp(2.2rem, 5.5vw, 3.6rem)' }}>Our Packages</h2>
 
             <div className="floral-divider"><span>✦</span><span>— ❧ —</span><span>✦</span></div>
           </div>

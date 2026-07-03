@@ -481,15 +481,15 @@
   color: rgba(61,43,31,0.68);
 }
 
-@media (max-width: 768px) {
-  .benefits__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (min-width: 769px) and (max-width: 1024px) {
   .benefits__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .benefits__grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -898,6 +898,27 @@
 .promo-banner__content strong { color: var(--gold); }
 
 /* ═══ Responsive ══════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .why-us__cards { grid-template-columns: repeat(3, 1fr); }
+  .services__cards { grid-template-columns: repeat(2, 1fr); }
+  .pricing__cards { grid-template-columns: 1fr 1fr; max-width: 100%; }
+  .hero__title { font-size: clamp(2.4rem, 6vw, 4rem); }
+  .hero { min-height: 580px; }
+  .container-wide { padding: 0 1.5rem; }
+  .about-teaser,
+  .why-us,
+  .services,
+  .pricing,
+  .benefits,
+  .session-rates { padding: 5.5rem 0; }
+  .video-banner { height: 55vh; min-height: 340px; }
+  .video-banner__quote { font-size: clamp(1.6rem, 5vw, 2.8rem); }
+  .session-rates__table thead th,
+  .session-rates__table tbody td { padding: 0.9rem 1.2rem; }
+  .pricing-card { padding: 2.25rem 1.75rem; }
+  .pricing-card__amount { font-size: 2.6rem; }
+}
+
 @media (max-width: 1024px) {
   .why-us__cards { grid-template-columns: repeat(2, 1fr); }
   .services__cards { grid-template-columns: repeat(2, 1fr); }

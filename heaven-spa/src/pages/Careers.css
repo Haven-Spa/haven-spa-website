@@ -251,6 +251,35 @@
 }
 
 /* ═══ Responsive ════════════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .careers-intro { padding: 5rem 0 6rem; }
+  .careers-openings { padding: 4rem 0 5rem; }
+  .careers-benefits { padding: 5rem 0 6rem; }
+}
+
+@media (max-width: 1024px) {
+  .careers-intro { padding: 5rem 0 6rem; }
+
+  .careers-openings { padding: 4rem 0 6rem; }
+
+  .job-item__header {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .job-item__content.open {
+    padding: 0 1.5rem 1.25rem;
+  }
+
+  .job-item__lists {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .careers-benefits {
+    padding: 5rem 0 6rem;
+  }
+}
+
 @media (max-width: 768px) {
   .careers-intro {
     padding: 4rem 0 5rem;

@@ -175,6 +175,12 @@
 }
 
 /* ═══ Responsive ══════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mv-cards { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-story__img-wrap { width: 100%; max-width: 400px; height: 420px; }
+}
+
 @media (max-width: 1024px) {
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .mv-cards { grid-template-columns: 1fr 1fr; }
