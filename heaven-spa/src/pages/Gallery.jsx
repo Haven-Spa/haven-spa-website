@@ -122,7 +122,7 @@ export default function Gallery() {
           </button>
           <div className="lightbox__img-wrap" onClick={e => e.stopPropagation()}>
             {filtered[lightboxIdx]?.src
-              ? <img src={filtered[lightboxIdx].src} alt={filtered[lightboxIdx].label} />
+              ? <img src={filtered[lightboxIdx].src} alt={filtered[lightboxIdx].label} loading="lazy" />
               : <div className="lightbox__placeholder">{filtered[lightboxIdx]?.label}</div>}
             <p className="lightbox__caption">
               {filtered[lightboxIdx]?.category} — {lightboxIdx + 1} / {filtered.length}

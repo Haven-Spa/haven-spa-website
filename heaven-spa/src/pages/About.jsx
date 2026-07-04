@@ -98,7 +98,7 @@ export default function About() {
           <div className={`about-story__portrait hidden-anim${storyVis ? ' visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
             <div className="about-story__img-wrap">
               {ownerImg
-                ? <img src={ownerImg} alt="John Tetteh Awaitey" />
+                ? <img src={ownerImg} alt="John Tetteh Awaitey" loading="lazy" />
                 : (
                   <div className="img-placeholder" style={{ height: '100%', fontSize: '1.2rem' }}>
                     Portrait
@@ -154,7 +154,7 @@ export default function About() {
               >
                 <div className="team-card__photo">
                   {member.img
-                    ? <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+                    ? <img src={member.img} alt={member.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
                     : <span>{member.init}</span>}
                 </div>
                 <h3 className="team-card__name">{member.name}</h3>

@@ -10,7 +10,7 @@ export default function Footer() {
         {/* Col 1 */}
         <div className="footer__col footer__col--brand">
           <Link to="/" className="footer__logo">
-            <img src={logoImg} alt="Restore Luxury Spa & Beauty" className="footer__logo-img" />
+            <img src={logoImg} alt="Restore Luxury Spa & Beauty" className="footer__logo-img" loading="lazy" />
             <div className="footer__logo-text">
               <span className="footer__logo-text-top">Restore</span>
               <div className="footer__logo-text-row">
@@ -50,6 +50,7 @@ export default function Footer() {
               <li><Link to="/#services">Services</Link></li>
               <li><Link to="/about#team">Our Team</Link></li>
               <li><Link to="/gallery">Gallery</Link></li>
+              <li><Link to="/blogs">Blogs</Link></li>
               <li><Link to="/careers">Careers</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>

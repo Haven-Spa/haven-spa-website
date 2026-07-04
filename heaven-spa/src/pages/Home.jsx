@@ -183,12 +183,12 @@ export default function Home() {
           <div className={`about-teaser__images hidden-anim${aboutVis ? ' visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
             <div className="about-teaser__img-main">
               {aboutMainImg
-                ? <img src={aboutMainImg} alt="Spa interior" />
+                ? <img src={aboutMainImg} alt="Spa interior" loading="lazy" />
                 : <Placeholder label="Spa Interior" />}
             </div>
             <div className="about-teaser__img-thumb">
               {aboutThumbImg
-                ? <img src={aboutThumbImg} alt="Therapist" />
+                ? <img src={aboutThumbImg} alt="Therapist" loading="lazy" />
                 : <Placeholder label="Therapist" />}
             </div>
             <BotanicalLeaf className="about-teaser__leaf-collage" style={{ width: 100, bottom: -20, right: -20 }} />
@@ -248,7 +248,7 @@ export default function Home() {
               >
                 <div className="service-card__img">
                   {s.img
-                    ? <img src={s.img} alt={s.title} style={{ objectPosition: s.imgPos }} />
+                    ? <img src={s.img} alt={s.title} loading="lazy" style={{ objectPosition: s.imgPos }} />
                     : <Placeholder label={s.title} style={{ height: '100%' }} />}
                 </div>
                 <div className="service-card__body">
@@ -343,7 +343,7 @@ export default function Home() {
       {/* ═══ VIDEO BANNER ══════════════════════════════ */}
       <section className="video-banner">
         {videoBgImg
-          ? <img src={videoBgImg} alt="" className="video-banner__bg" />
+          ? <img src={videoBgImg} alt="" className="video-banner__bg" loading="lazy" />
           : <div className="video-banner__bg video-banner__bg--placeholder" />}
         <div className="video-banner__overlay" />
         <div className="video-banner__content">

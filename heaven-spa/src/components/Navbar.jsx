@@ -9,6 +9,7 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
   const openRef = useRef(false)
+  const location = useLocation()
 
   // keep ref in sync so scroll handler can read it
   useEffect(() => { openRef.current = open }, [open])
@@ -48,14 +49,14 @@ export default function Navbar() {
         <div className="navbar__right">
           {/* Desktop nav */}
           <nav className="navbar__links">
-            {['/', '/about', '/gallery', '/careers', '/contact'].map((path, i) => (
+            {['/', '/about', '/gallery', '/blogs', '/careers', '/contact'].map((path, i) => (
               <NavLink
                 key={path}
                 to={path}
                 end={path === '/'}
                 className={({ isActive }) => `navbar__link${isActive ? ' navbar__link--active' : ''}`}
               >
-                {['Home', 'About', 'Gallery', 'Careers', 'Contact'][i]}
+                {['Home', 'About', 'Gallery', 'Blogs', 'Careers', 'Contact'][i]}
               </NavLink>
             ))}
           </nav>
@@ -76,7 +77,7 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       <div className={`navbar__drawer${open ? ' navbar__drawer--open' : ''}`}>
-        {['/', '/about', '/gallery', '/careers', '/contact'].map((path, i) => (
+        {['/', '/about', '/gallery', '/blogs', '/careers', '/contact'].map((path, i) => (
           <NavLink
             key={path}
             to={path}
@@ -84,7 +85,7 @@ export default function Navbar() {
             className={({ isActive }) => `navbar__drawer-link${isActive ? ' active' : ''}`}
             onClick={() => setOpen(false)}
           >
-            {['Home', 'About', 'Gallery', 'Careers', 'Contact'][i]}
+            {['Home', 'About', 'Gallery', 'Blogs', 'Careers', 'Contact'][i]}
           </NavLink>
         ))}
         <Link to="/contact" className="btn btn-gold" onClick={() => setOpen(false)} style={{ marginTop: '1rem', textAlign: 'center' }}>

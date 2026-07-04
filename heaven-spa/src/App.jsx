@@ -1,14 +1,16 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import Home from './pages/Home'
-import About from './pages/About'
-import Gallery from './pages/Gallery'
-import Contact from './pages/Contact'
-import Careers from './pages/Careers'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import CancellationPolicy from './pages/CancellationPolicy'
+
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Gallery = lazy(() => import('./pages/Gallery'))
+const Contact = lazy(() => import('./pages/Contact'))
+const Careers = lazy(() => import('./pages/Careers'))
+const Blogs = lazy(() => import('./pages/Blogs'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const CancellationPolicy = lazy(() => import('./pages/CancellationPolicy'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -23,15 +25,18 @@ function AppRoutes() {
       <ScrollToTop />
       <Navbar />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/cancellation" element={<CancellationPolicy />} />
-        </Routes>
+        <Suspense fallback={<div style={{ minHeight: '40vh' }} />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/cancellation" element={<CancellationPolicy />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>
