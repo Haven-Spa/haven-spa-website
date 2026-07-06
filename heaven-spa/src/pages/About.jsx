@@ -5,11 +5,19 @@ import './About.css'
 
 const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true })
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
+const getImgByBase = (base) => (
+  getImg(`${base}.png`) ||
+  getImg(`${base}.jpg`) ||
+  getImg(`${base}.jpeg`) ||
+  getImg(`${base}.webp`) ||
+  null
+)
 
-const aboutHeroBg  = getImg('about-main.jpg')
-const ownerImg     = getImg('owner.png')
-const founderImg   = getImg('founder.png')
-const operationImg = getImg('operation.png')
+const aboutHeroBg  = getImgByBase('about-main')
+const ownerImg     = getImgByBase('owner')
+const founderImg   = getImgByBase('founder')
+const operationImg = getImgByBase('operation')
+const managerImg   = getImgByBase('manager')
 
 const BotanicalLeaf = ({ style = {} }) => (
   <svg className="botanical-leaf" style={style} viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +55,7 @@ function Counter({ target, suffix = '' }) {
 const team = [
   { name: 'John T. Awaitey', role: 'Founder & CEO', init: 'J', img: founderImg },
   { name: 'Emmanuel T. Awaitey', role: 'Managing Director', init: 'E', img: operationImg },
-  { name: 'Spa Manager', role: 'Spa Manager', init: 'S' },
+  { name: 'Hilary Owiredu', role: 'Spa Manager', init: 'H', img: managerImg },
   { name: 'Snr Beauty Technician', role: 'Senior Beauty Technician', init: 'S' },
   { name: 'Beauty Technician', role: 'Beauty Technician', init: 'B' },
   { name: 'Massage Therapy Technician', role: 'Massage Therapy Technician', init: 'M' },
@@ -63,7 +71,7 @@ export default function About() {
       {/* Hero */}
       <section className="page-hero">
         {aboutHeroBg
-          ? <img src={aboutHeroBg} alt="About Restore Luxury Spa & Beauty" className="page-hero-img" />
+                ? <img src={aboutHeroBg} alt="About Restore Luxury Spa & Beauty" className="page-hero-img" draggable={false} onContextMenu={(e) => e.preventDefault()} />
           : <div className="page-hero-img" style={{ background: 'linear-gradient(135deg, var(--espresso), var(--bark))' }} />}
         <div className="page-hero-content">
           <p><a href="/">Home</a> / About Us</p>
@@ -98,7 +106,7 @@ export default function About() {
           <div className={`about-story__portrait hidden-anim${storyVis ? ' visible' : ''}`} style={{ transitionDelay: '0.15s' }}>
             <div className="about-story__img-wrap">
               {ownerImg
-                ? <img src={ownerImg} alt="John Tetteh Awaitey" loading="lazy" />
+                ? <img src={ownerImg} alt="John Tetteh Awaitey" loading="lazy" draggable={false} onContextMenu={(e) => e.preventDefault()} />
                 : (
                   <div className="img-placeholder" style={{ height: '100%', fontSize: '1.2rem' }}>
                     Portrait
@@ -147,6 +155,9 @@ export default function About() {
           </div>
           <div className="team-grid">
             {team.map((member, i) => (
+              (() => {
+                const isSpaManager = member.role === 'Spa Manager'
+                return (
               <div
                 key={member.name}
                 className={`team-card hidden-anim${teamVis ? ' visible' : ''}`}
@@ -154,12 +165,14 @@ export default function About() {
               >
                 <div className="team-card__photo">
                   {member.img
-                    ? <img src={member.img} alt={member.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+                    ? <img src={member.img} alt={member.name} loading="lazy" draggable={false} onContextMenu={(e) => e.preventDefault()} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: isSpaManager ? 'center top' : 'center', borderRadius: '50%' }} />
                     : <span>{member.init}</span>}
                 </div>
                 <h3 className="team-card__name">{member.name}</h3>
                 <p className="team-card__role">{member.role}</p>
               </div>
+                )
+              })()
             ))}
           </div>
         </div>

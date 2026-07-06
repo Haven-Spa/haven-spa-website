@@ -59,6 +59,10 @@
   background: var(--stone);
 }
 
+.gallery-item--preview-only {
+  cursor: default;
+}
+
 /* Vary heights for masonry feel */
 .gallery-item:nth-child(3n+1) { aspect-ratio: 3/4; }
 .gallery-item:nth-child(3n+2) { aspect-ratio: 1; }
@@ -68,9 +72,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.35s ease;
+  image-rendering: auto;
 }
-.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item:hover img { transform: scale(1.008); }
+.gallery-item--preview-only:hover img { transform: none; }
 
 .gallery-item__placeholder {
   width: 100%;
@@ -99,6 +105,7 @@
   transition: opacity var(--transition);
 }
 .gallery-item:hover .gallery-item__overlay { opacity: 1; }
+.gallery-item--preview-only .gallery-item__overlay { opacity: 1; background: rgba(61,43,31,0.6); }
 .gallery-item__overlay span {
   font-size: 0.72rem;
   letter-spacing: 0.15em;
@@ -161,8 +168,8 @@
 .lightbox__next:hover { background: var(--gold); color: var(--espresso); }
 
 .lightbox__img-wrap {
-  max-width: min(900px, 88vw);
-  max-height: 88vh;
+  max-width: min(860px, 84vw);
+  max-height: 84vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,9 +178,10 @@
 
 .lightbox__img-wrap img {
   max-width: 100%;
-  max-height: 78vh;
+  max-height: 72vh;
   object-fit: contain;
   border-radius: 3px;
+  image-rendering: auto;
 }
 
 .lightbox__placeholder {
@@ -208,6 +216,7 @@
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .lightbox__prev { left: 0.5rem; }
   .lightbox__next { right: 0.5rem; }
+  .gallery-item:hover img { transform: scale(1); }
 }
 
 @media (max-width: 480px) {

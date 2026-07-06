@@ -4,11 +4,18 @@ import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import './Gallery.css'
 
 /* ─── Dynamically import gallery images ─────────────────── */
-const imageModules = import.meta.glob('../assets/images/gallery-*.{jpg,jpeg,png,webp}', { eager: true })
+const imageModules = import.meta.glob('../assets/images/gallery-*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true })
 const importedImages = Object.values(imageModules).map(m => m.default)
 
-const _allImgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true })
+const _allImgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true })
 const getImg = (name) => _allImgs[`../assets/images/${name}`]?.default ?? null
+const getImgByBase = (base) => (
+  getImg(`${base}.png`) ||
+  getImg(`${base}.jpg`) ||
+  getImg(`${base}.jpeg`) ||
+  getImg(`${base}.webp`) ||
+  null
+)
 
 /* ─── Gallery data ──────────────────────────────────────── */
 const categories = ['All', 'Services', 'Interiors', 'Team']
@@ -24,14 +31,44 @@ const galleryItems = Array.from({ length: 12 }, (_, i) => ({
 export default function Gallery() {
   const [active, setActive] = useState('All')
   const [lightboxIdx, setLightboxIdx] = useState(null)
+  const [isHighQualityBySrc, setIsHighQualityBySrc] = useState({})
   const [galleryRef, galleryVis] = useIntersectionObserver()
 
-  const heroBg = getImg('about-main.jpg')
+  const heroBg = getImgByBase('about-main')
 
   const filtered = active === 'All' ? galleryItems : galleryItems.filter(g => g.category === active)
 
-  const openLightbox = (realIndex) => setLightboxIdx(realIndex)
+  const openLightbox = (realIndex) => {
+    const item = filtered[realIndex]
+    if (!item?.src) return
+    if (isHighQualityBySrc[item.src] === false) return
+    setLightboxIdx(realIndex)
+  }
   const closeLightbox = () => setLightboxIdx(null)
+
+  useEffect(() => {
+    let cancelled = false
+    const minLongEdgeForLightbox = 1500
+
+    galleryItems.forEach((item) => {
+      if (!item.src || Object.prototype.hasOwnProperty.call(isHighQualityBySrc, item.src)) return
+
+      const img = new Image()
+      img.onload = () => {
+        if (cancelled) return
+        const longEdge = Math.max(img.naturalWidth || 0, img.naturalHeight || 0)
+        const isHighQuality = longEdge >= minLongEdgeForLightbox
+        setIsHighQualityBySrc((prev) => ({ ...prev, [item.src]: isHighQuality }))
+      }
+      img.onerror = () => {
+        if (cancelled) return
+        setIsHighQualityBySrc((prev) => ({ ...prev, [item.src]: false }))
+      }
+      img.src = item.src
+    })
+
+    return () => { cancelled = true }
+  }, [isHighQualityBySrc])
 
   const prev = useCallback(() => {
     setLightboxIdx(i => (i - 1 + filtered.length) % filtered.length)
@@ -88,11 +125,15 @@ export default function Gallery() {
           {/* Grid */}
           <div className="gallery-grid">
             {filtered.map((item, i) => (
+              (() => {
+                const lowQuality = item.src && isHighQualityBySrc[item.src] === false
+                return (
               <div
                 key={`${item.id}-${active}`}
-                className={`gallery-item hidden-anim${galleryVis ? ' visible' : ''}`}
+                className={`gallery-item${lowQuality ? ' gallery-item--preview-only' : ''} hidden-anim${galleryVis ? ' visible' : ''}`}
                 style={{ transitionDelay: `${(i % 9) * 0.06}s` }}
                 onClick={() => openLightbox(i)}
+                title={lowQuality ? 'Low resolution image: lightbox disabled to prevent pixelation' : 'Open image'}
               >
                 {item.src
                   ? <img src={item.src} alt={item.label} loading="lazy" />
@@ -103,9 +144,11 @@ export default function Gallery() {
                   )}
                 <div className="gallery-item__overlay">
                   <ZoomIn size={28} />
-                  <span>{item.category}</span>
+                  <span>{lowQuality ? 'Preview Only' : item.category}</span>
                 </div>
               </div>
+                )
+              })()
             ))}
           </div>
         </div>
