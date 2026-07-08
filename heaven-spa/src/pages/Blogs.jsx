@@ -22,7 +22,7 @@ const normalizeBlog = (blog, idx) => {
   const excerpt = blog.excerpt ?? blog.summary ?? blog.shortDescription ?? ''
   const content = blog.content ?? blog.description ?? blog.body ?? ''
   const category = blog.category ?? blog.blogCategory ?? 'Wellness'
-  const image = blog.imageUrl ?? blog.image ?? blog.coverImage ?? blog.thumbnail ?? ''
+  const image = blog.coverImageUrl ?? blog.imageUrl ?? blog.image ?? blog.coverImage ?? blog.thumbnail ?? ''
   const author = blog.author ?? blog.createdBy ?? 'Restore Luxury Spa'
   const publishedAt = blog.publishedAt ?? blog.createdAt ?? blog.date ?? ''
 

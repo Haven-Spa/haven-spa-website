@@ -35,9 +35,9 @@ export default function Footer() {
           <div className="footer__col">
             <h4 className="footer__heading">Get In Touch</h4>
             <ul className="footer__contact">
-              <li><MapPin size={14} /><span>Opposite G-Unit Hotel, Ogome (Brigade), Somanya, Eastern Region, Ghana</span></li>
+              <li><MapPin size={14} /><span>Ogome (1 minute walk from G-Unit Hotel), Somanya, Eastern Region, Ghana</span></li>
               <li><Mail size={14} /><a href="mailto:restoreluxuryspa@gmail.com">restoreluxuryspa@gmail.com</a></li>
-              <li><Phone size={14} /><a href="tel:+233204736880">+233 20 473 6880</a></li>
+              <li><Phone size={14} /><a href="tel:+233204736880">+233 20 473 6880</a> / <a href="tel:+233552237572">0552237572</a></li>
               <li><span style={{ fontSize: '0.78rem', color: 'rgba(250,248,245,0.6)' }}>Open Daily: 10:00 AM – 10:00 PM</span></li>
             </ul>
           </div>

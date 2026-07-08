@@ -282,7 +282,7 @@ export default function Contact() {
             { icon: <Star size={15} />, text: 'Premium experience guaranteed' },
             { icon: <Clock size={15} />, text: 'Confirmed within 30 minutes' },
             { icon: <Sparkles size={15} />, text: 'Luxury spa environment' },
-            { icon: <MapPin size={15} />, text: 'Somanya, Eastern Region' },
+            { icon: <MapPin size={15} />, text: 'Ogome, Somanya' },
           ].map(({ icon, text }) => (
             <div key={text} className="contact-trust-bar__item">
               <span className="contact-trust-bar__icon">{icon}</span>
@@ -315,7 +315,7 @@ export default function Contact() {
                 <div className="contact-info__icon"><MapPin size={18} /></div>
                 <div>
                   <strong>Our Location</strong>
-                  <span>Opposite G-Unit Hotel, Ogome (Brigade)<br />Somanya, Eastern Region, Ghana</span>
+                  <span>Ogome (1 minute walk from G-Unit Hotel)<br />Somanya, Eastern Region, Ghana</span>
                 </div>
               </li>
               <li>
@@ -329,7 +329,7 @@ export default function Contact() {
                 <div className="contact-info__icon"><Phone size={18} /></div>
                 <div>
                   <strong>Phone / WhatsApp</strong>
-                  <a href="tel:+233204736880">+233 20 473 6880</a>
+                  <a href="tel:+233204736880">+233 20 473 6880</a> / <a href="tel:+233552237572">0552237572</a>
                 </div>
               </li>
             </ul>
