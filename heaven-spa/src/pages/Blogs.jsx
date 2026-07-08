@@ -72,8 +72,37 @@ const readingTime = (text) => {
   return `${Math.max(2, Math.ceil(words / 200))} min read`
 }
 
+const HARDCODED_BLOG = {
+  id: 'grand-opening-2026',
+  title: '✨ GRAND OPENING ALERT! ✨',
+  excerpt: 'Join us for the official opening of Restore Luxury Spa & Beauty on Saturday, July 18, 2026!',
+  content: `
+    <div style="line-height: 1.8;">
+      <p><strong>The wait is over! 🎉</strong></p>
+      <p>Join us for the official opening of <strong>Restore Luxury Spa & Beauty</strong> on <strong>Saturday, July 18, 2026</strong>, from <strong>8:00 AM</strong> at Ogome, Somanya, Eastern Region.</p>
+      
+      <p><strong>💆 FREE Massage Chair Therapy from 9:00 AM – 12:00 PM!</strong></p>
+      
+      <p>Come and discover a new level of relaxation and wellness. Whether you're looking to relieve stress, ease body aches, or simply treat yourself, Restore Luxury Spa & Beauty is the place to be.</p>
+      
+      <p>Bring your family and friends and experience luxury, comfort, and care—all in one place.</p>
+      
+      <p><strong>📞 For enquiries:</strong><br/>
+      020 473 6880<br/>
+      055 223 7572</p>
+      
+      <p><em>Restore Luxury Spa & Beauty – Relax. Refresh. Restore.</em></p>
+    </div>
+  `,
+  category: 'Events',
+  image: getImg('opening.jpeg') || '',
+  author: 'Restore Luxury Spa',
+  publishedAt: '2026-07-08',
+  tags: ['Grand Opening', 'Events', 'Massage', 'Free Therapy'],
+}
+
 export default function Blogs() {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([HARDCODED_BLOG])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
@@ -90,9 +119,14 @@ export default function Blogs() {
 
       const payload = await res.json()
       const list = normalizeResponse(payload)
-      setBlogs(list.map(normalizeBlog))
+      const apiBlogs = list.map(normalizeBlog)
+      
+      // Combine hardcoded blog with API blogs
+      setBlogs([HARDCODED_BLOG, ...apiBlogs])
     } catch (err) {
       setError(err.message || 'Could not load blog posts')
+      // Keep the hardcoded blog even if API fails
+      setBlogs([HARDCODED_BLOG])
     } finally {
       setLoading(false)
     }
