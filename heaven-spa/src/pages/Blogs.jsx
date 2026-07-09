@@ -4,7 +4,7 @@ import { CalendarDays, UserRound, BookOpenText, Search, RefreshCw, ArrowRight, X
 import DOMPurify from 'dompurify'
 import './Blogs.css'
 
-const API_URL = 'https://api.restoreluxuryspa.com/api/blogs'
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/blogs`
 
 const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true })
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null

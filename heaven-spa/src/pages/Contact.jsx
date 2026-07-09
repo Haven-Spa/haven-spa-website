@@ -4,6 +4,8 @@ import { MapPin, Mail, Phone, Instagram, Facebook, Twitter, ChevronDown, Clock, 
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import './Contact.css'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL
+
 const _imgs = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true })
 const getImg = (name) => _imgs[`../assets/images/${name}`]?.default ?? null
 const heroBg = getImg('hero.jpg')
@@ -63,7 +65,7 @@ export default function Contact() {
 
   useEffect(() => {
     setServicesLoading(true)
-    fetch('https://api.restoreluxuryspa.com/api/packages')
+    fetch(`${API_BASE}/packages`)
       .then(r => r.json())
       .then(data => {
         const list = Array.isArray(data) ? data : (data.data ?? data.services ?? data.result ?? [])
@@ -123,7 +125,7 @@ export default function Contact() {
   const fetchBookedSlots = async (date) => {
     try {
       setCheckingAvailability(true)
-      const res = await fetch(`https://api.restoreluxuryspa.com/api/Bookings/date/${date}`)
+      const res = await fetch(`${API_BASE}/Bookings/date/${date}`)
       if (res.ok) {
         const data = await res.json()
         const bookings = Array.isArray(data) ? data : (data.data ?? data.bookings ?? [])
@@ -153,7 +155,7 @@ export default function Contact() {
       const pad = n => String(n).padStart(2, '0')
       const appointmentDate = new Date(`${date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://api.restoreluxuryspa.com/api/Bookings/check-availability', {
+      const res = await fetch(`${API_BASE}/Bookings/check-availability`, {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -183,7 +185,7 @@ export default function Contact() {
       const pad = n => String(n).padStart(2, '0')
       const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://api.restoreluxuryspa.com/api/Bookings/waitlist', {
+      const res = await fetch(`${API_BASE}/Bookings/waitlist`, {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -225,7 +227,7 @@ export default function Contact() {
       // Construct as a local datetime string so timezone does not shift the date
       const appointmentDate = new Date(`${form.date}T${pad(hours)}:${pad(minutes)}:00`)
 
-      const res = await fetch('https://api.restoreluxuryspa.com/api/Bookings', {
+      const res = await fetch(`${API_BASE}/Bookings`, {
         method: 'POST',
         headers: { 'accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -315,7 +317,7 @@ export default function Contact() {
                 <div className="contact-info__icon"><MapPin size={18} /></div>
                 <div>
                   <strong>Our Location</strong>
-                  <span>Ogome (1 minute walk from G-Unit Hotel)<br />Somanya, Eastern Region, Ghana</span>
+                  <span>Ogome (1 minute walk from G-Unit Hotel)<br />Somanya, Eastern Region, Ghana<br />GPS: EY-0095-6937</span>
                 </div>
               </li>
               <li>
@@ -370,7 +372,7 @@ export default function Contact() {
               <span className="contact-info__socials-label">Follow Us</span>
               <div className="contact-info__socials">
                 <a href="https://www.instagram.com/restoreluxuryspabeauty?igsh=MTYzN2E1eXk0a2VhNg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
-                <a href="https://www.facebook.com/share/1GGJFFSkKm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={16} /></a>
+                <a href="https://web.facebook.com/people/Restore-Luxury-Spa-Beauty/61591861585363/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={16} /></a>
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={16} /></a>
               </div>
             </div>

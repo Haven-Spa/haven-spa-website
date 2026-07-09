@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Wind, Wifi, Star, Coffee, Hand, ChevronDown, ChevronLeft, ChevronRight, Play, Check, X } from 'lucide-react'
+import { Star, Hand, ChevronDown, ChevronLeft, ChevronRight, Play, Check, X } from 'lucide-react'
 import useIntersectionObserver from '../hooks/useIntersectionObserver'
+import SectionDivider from '../components/SectionDivider'
 import './Home.css'
 
 /* ─── Image lookup via glob ───────────────────────────── */
@@ -77,13 +78,12 @@ export default function Home() {
     return () => clearInterval(t)
   }, [heroPaused, heroNext])
   const [aboutRef, aboutVis] = useIntersectionObserver()
-  const [whyRef, whyVis] = useIntersectionObserver()
   const [servicesRef, servicesVis] = useIntersectionObserver()
   const [pricingRef, pricingVis] = useIntersectionObserver()
 
   useEffect(() => {
     setPackagesLoading(true)
-    fetch('https://api.restoreluxuryspa.com/api/packages')
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/packages`)
       .then(r => r.json())
       .then(data => {
         const list = Array.isArray(data) ? data : (data.data ?? data.packages ?? data.result ?? [])
@@ -160,6 +160,8 @@ export default function Home() {
         </a>
       </section>
 
+      <SectionDivider from="var(--espresso)" to="var(--warm-white)" />
+
       {/* ═══ ABOUT TEASER ══════════════════════════════ */}
       <section id="about" className="about-teaser" ref={aboutRef}>
         <BotanicalLeaf className="about-teaser__leaf-left" style={{ width: 160, left: -40, top: 40 }} />
@@ -196,34 +198,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ WHY CHOOSE US ═════════════════════════════ */}
-      <section className="why-us" ref={whyRef}>
-        <div className="why-us__inner container-wide">
-          <div className="why-us__header">
-            <span className="section-label" style={{ color: 'var(--gold)' }}>Why Restore</span>
-            <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Crafted for your comfort</h2>
-          </div>
-          <div className="why-us__cards">
-            {[
-              { icon: <Wind size={28} />, title: 'Massage Chair Therapy', desc: 'State-of-the-art massage chairs that relieve tension, improve circulation, and promote deep relaxation.' },
-              { icon: <Star size={28} />, title: 'Luxury Pedicure', desc: 'Professional foot care in advanced massage pedicure chairs,nail care and full-body relaxation at once.' },
-              { icon: <Hand size={28} />, title: 'Manicure', desc: 'Classic and Deluxe manicure treatments in a calm, luxurious environment designed for your total comfort and beauty.' },
-              { icon: <Wifi size={28} />, title: 'Serene Environment', desc: 'A calm ash and gold space designed for total comfort, elegance, and peaceful wellness.' },
-              { icon: <Coffee size={28} />, title: 'After-Spa Refreshments', desc: 'Enjoy complimentary Sobolo, Lemon Tea, or Herbal Infusion after every session to restore and rehydrate.' },
-            ].map((f, i) => (
-              <div
-                key={f.title}
-                className={`why-card hidden-anim${whyVis ? ' visible' : ''}`}
-                style={{ transitionDelay: `${i * 0.1}s` }}
-              >
-                <div className="why-card__icon">{f.icon}</div>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SectionDivider from="var(--warm-white)" to="var(--cream)" />
 
       {/* ═══ SERVICES ══════════════════════════════════ */}
       <section className="services" id="services" ref={servicesRef}>
@@ -270,6 +245,8 @@ export default function Home() {
         </div>
       </section>
 
+      <SectionDivider from="var(--cream)" gradient={['var(--gold)', 'var(--terracotta)', 'var(--sage)']} />
+
       {/* ═══ HEALTH BENEFITS ═══════════════════════════ */}
       <section className="benefits">
         <div className="container-wide benefits__inner">
@@ -296,49 +273,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ SESSION RATES ═════════════════════════════ */}
-      <section className="session-rates">
-        <div className="container-wide session-rates__inner">
-          <div className="session-rates__header">
-            <span className="section-label" style={{ color: 'var(--gold)' }}>Transparent Pricing</span>
-            <h2 className="section-title" style={{ color: 'var(--warm-white)' }}>Massage Chair Session Rates</h2>
-            <div className="floral-divider" style={{ color: 'var(--gold)' }}><span>✦</span><span>— ❧ —</span><span>✦</span></div>
-            <p className="session-rates__sub">Pay only for the time you need — every minute counts at Restore Luxury Spa & Beauty.</p>
-          </div>
-          <div className="session-rates__table-wrap">
-            <p className="session-rates__promo-note"></p>
-            <table className="session-rates__table">
-              <thead>
-                <tr>
-                  <th>Duration</th>
-                  <th>
-                    Price
-                    <span className="session-rates__promo-note">🎉 Promotional — valid until 31st July 2026</span>
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { mins: 10, price: 'GHS 30.00' },
-                  { mins: 20, price: 'GHS 50.00' },
-                  { mins: 30, price: 'GHS 80.00' },
-                ].map(row => (
-                  <tr key={row.mins}>
-                    <td><span className="session-rates__mins">{row.mins} min</span></td>
-                    <td>
-                      <span className="session-rates__price">{row.price}</span>
-                    </td>
-                    <td style={{ whiteSpace: 'nowrap' }}>
-                      <Link to={`/contact?plan=${encodeURIComponent(`Massage Chair Therapy — ${row.mins} min`)}`} className="btn btn-outline-gold session-rates__btn">Book</Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <SectionDivider from="var(--warm-white)" to="var(--espresso)" />
 
       {/* ═══ VIDEO BANNER ══════════════════════════════ */}
       <section className="video-banner">
@@ -357,6 +292,8 @@ export default function Home() {
           </button>
         </div>
       </section>
+
+      <SectionDivider from="var(--espresso)" to="var(--cream)" />
 
       {/* Video modal */}
       {videoOpen && (
@@ -392,6 +329,8 @@ export default function Home() {
                 const name = plan.name ?? plan.serviceName ?? plan.title ?? plan.id
                 const price = plan.price ?? plan.amount ?? plan.cost
                 const features = plan.features ?? (plan.description ? [plan.description] : [])
+                const category = plan.category ?? plan.serviceCategory ?? plan.type ?? ''
+                const icon = plan.icon ?? ''
                 const isHighlight = plan.highlight ?? plan.featured ?? false
                 return (
                   <div
@@ -399,17 +338,28 @@ export default function Home() {
                     className={`pricing-card${isHighlight ? ' pricing-card--highlight' : ''} hidden-anim${pricingVis ? ' visible' : ''}`}
                     style={{ transitionDelay: `${i * 0.12}s` }}
                   >
-                    <h3 className="pricing-card__name">{name}</h3>
-                    <div className="pricing-card__price">
-                      <span className="pricing-card__amount">GHS {price}</span>
-                      <span className="pricing-card__period">/mo</span>
+                    {isHighlight && <span className="pricing-card__badge">Most Popular</span>}
+
+                    <div className="pricing-card__top">
+                      {icon && <span className="pricing-card__icon">{icon}</span>}
+                      {category && <span className="pricing-card__category">{category}</span>}
                     </div>
+
+                    <h3 className="pricing-card__name">{name}</h3>
+
+                    <div className="pricing-card__price">
+                      <span className="pricing-card__currency">GHS</span>
+                      <span className="pricing-card__amount">{price}</span>
+                    </div>
+
                     <span className="pricing-card__promo">🎉 Promotional Rate</span>
+
                     <ul className="pricing-card__features">
                       {features.map((f, idx) => (
                         <li key={idx}><Check size={15} />{f}</li>
                       ))}
                     </ul>
+
                     <Link to={`/contact?plan=${encodeURIComponent(name)}`} className={`btn ${isHighlight ? 'btn-gold' : 'btn-dark'}`}>Select Plan</Link>
                   </div>
                 )

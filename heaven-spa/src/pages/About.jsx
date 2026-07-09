@@ -87,7 +87,7 @@ export default function About() {
             <h2 className="section-title">A Modern Wellness Destination<br />Founded in 2026</h2>
             <p>
               Founded in 2026, Restore Luxury Spa & Beauty is a modern wellness and beauty destination located at
-              Ogome (1 minute walk from G-Unit Hotel), Somanya, Eastern Region, Ghana.
+              Ogome (1 minute walk from G-Unit Hotel), Somanya, Eastern Region, Ghana (GPS: EY-0095-6937).
             </p>
             <p>
               We specialise in premium massage chair therapy, luxury pedicure, and manicure services
