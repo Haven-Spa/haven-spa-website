@@ -26,7 +26,7 @@ export default function Footer() {
             <a href="https://www.instagram.com/restoreluxuryspabeauty?igsh=MTYzN2E1eXk0a2VhNg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={18} /></a>
             <a href="https://web.facebook.com/people/Restore-Luxury-Spa-Beauty/61591861585363/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><Facebook size={18} /></a>
             <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><Twitter size={18} /></a>
-            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><Youtube size={18} /></a>
+            <a href="https://www.youtube.com/@RestoreLuxurySpaBeauty" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><Youtube size={18} /></a>
           </div>
         </div>
 
